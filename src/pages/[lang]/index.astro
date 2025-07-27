@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import "../../styles/global.css";
+import QuizView from "../../components/QuizView.astro";
+import { languages } from '../../i18n/ui';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  const paths = Object.entries(languages).map(([lang, label]) => {
+    return { params: { lang } };
+  });
+
+  return paths;
+}
+---
+
+<Base>
+  <h1>🧠 {t("title")}</h1>
+  <QuizView />
+</Base>

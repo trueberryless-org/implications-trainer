@@ -1,4 +1,17 @@
 {
+  "title": "Implikations-Trainer",
+  "templates": {
+    "all": "Alle {sub} sind {obj}.",
+    "none": "Keine {sub} sind {obj}.",
+    "some": "Einige {sub} sind {obj}.",
+    "some_none": "Einige {sub} sind nicht {obj}.",
+    "unknown": "Keine der Schlussfolgerungen ist richtig."
+  },
+  "ui": {
+    "statement1": "Aussage 1",
+    "statement2": "Aussage 2",
+    "newQuestion": "🔄 Neue Aufgabe"
+  },
   "terms": [
     "Säugetiere",
     "Warmblüter",

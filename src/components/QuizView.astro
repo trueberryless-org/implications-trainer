@@ -1,48 +1,77 @@
 ---
 import { generateQuiz } from "./QuizGenerator.ts";
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
-const quiz = generateQuiz();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const quiz = generateQuiz(lang);
 ---
 
+<style>
+  .option {
+    display: block;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+
+  .option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .correct {
+    background-color: #c8f7c5;
+    border-color: #2ecc71;
+    font-weight: bold;
+  }
+
+  .wrong {
+    background-color: #f7c5c5;
+    border-color: #e74c3c;
+  }
+</style>
+
 <div>
-  <p><strong>Aussage 1:</strong> {quiz.statement1.text}</p>
-  <p><strong>Aussage 2:</strong> {quiz.statement2.text}</p>
+  <p><strong>{t("ui.statement1")}:</strong> {quiz.baseSentences[0]}</p>
+  <p><strong>{t("ui.statement2")}:</strong> {quiz.baseSentences[1]}</p>
 
   <form onsubmit="event.preventDefault()">
-    {quiz.options.map((opt, index) => (
+    {quiz.answers.map((answer, index) => (
       <button
         type="button"
         class="option"
-        data-option={opt}
+        data-option={answer.sentence}
+        data-correct={answer.isCorrect ? "true" : "false"}
         data-index={index}
       >
-        {opt}
+        {answer.sentence}
       </button>
     ))}
   </form>
 
-  <a href="/" style="display: inline-block; margin-top: 1rem;">🔄 Neue Aufgabe</a>
+  <a href={`/${lang}/`} style="display: inline-block; margin-top: 1rem;">{t("ui.newQuestion")}</a>
 </div>
 
 <script type="module" define:vars={{ quiz }}>
-  const correctAnswer = JSON.stringify(quiz.correct);
   const buttons = document.querySelectorAll('button.option');
 
-  let selected = null;
+  let answered = false;
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      if (selected) return; // prevent multiple selections
+      if (answered) return;
+      answered = true;
 
-      selected = btn.dataset.option;
+      const isCorrect = btn.dataset.correct === "true";
 
       buttons.forEach((b) => {
-        b.classList.remove('correct', 'wrong');
-        if (b.dataset.option === correctAnswer) {
-          b.classList.add('correct');
-        } else if (b.dataset.option === selected) {
-          b.classList.add('wrong');
-        }
+        const correct = b.dataset.correct === "true";
+        b.classList.add(correct ? 'correct' : 'wrong');
       });
     });
   });
