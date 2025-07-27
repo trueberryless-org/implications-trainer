@@ -2,7 +2,9 @@
 import { generateQuiz } from "./QuizGenerator.ts";
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const referer = Astro.request.headers.get('Referer');
+const url = new URL(referer);
+const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 
 const quiz = generateQuiz(lang);
