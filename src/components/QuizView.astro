@@ -4,9 +4,8 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 export const prerender = false
 
-const referer = Astro.request.headers.get('Referer');
-const url = new URL(referer);
-const lang = getLangFromUrl(url);
+
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const quiz = generateQuiz(lang);
