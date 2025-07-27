@@ -8,16 +8,16 @@ import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// export async function getStaticPaths() {
-//   const paths = Object.entries(languages).map(([lang, label]) => {
-//     return { params: { lang } };
-//   });
+export async function getStaticPaths() {
+  const paths = Object.entries(languages).map(([lang, label]) => {
+    return { params: { lang } };
+  });
 
-//   return paths;
-// }
+  return paths;
+}
 ---
 
 <Base>
   <h1>🧠 {t("title")}</h1>
-  <QuizView />
+  <QuizView server:defer />
 </Base>
