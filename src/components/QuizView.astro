@@ -1,0 +1,49 @@
+---
+import { generateQuiz } from "./QuizGenerator.ts";
+
+const quiz = generateQuiz();
+---
+
+<div>
+  <p><strong>Aussage 1:</strong> {quiz.statement1.text}</p>
+  <p><strong>Aussage 2:</strong> {quiz.statement2.text}</p>
+
+  <form onsubmit="event.preventDefault()">
+    {quiz.options.map((opt, index) => (
+      <button
+        type="button"
+        class="option"
+        data-option={opt}
+        data-index={index}
+      >
+        {opt}
+      </button>
+    ))}
+  </form>
+
+  <a href="/" style="display: inline-block; margin-top: 1rem;">🔄 Neue Aufgabe</a>
+</div>
+
+<script type="module" define:vars={{ quiz }}>
+  const correctAnswer = JSON.stringify(quiz.correct);
+  const buttons = document.querySelectorAll('button.option');
+
+  let selected = null;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (selected) return; // prevent multiple selections
+
+      selected = btn.dataset.option;
+
+      buttons.forEach((b) => {
+        b.classList.remove('correct', 'wrong');
+        if (b.dataset.option === correctAnswer) {
+          b.classList.add('correct');
+        } else if (b.dataset.option === selected) {
+          b.classList.add('wrong');
+        }
+      });
+    });
+  });
+</script>

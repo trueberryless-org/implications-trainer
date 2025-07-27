@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Implication Quiz Wrapper Schema with typed statements, no wrong answers",
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["statements", "correct"],
+        "properties": {
+          "statements": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "$ref": "#/$defs/statement"
+            }
+          },
+          "correct": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/conclusion"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "quantifierType": {
+      "type": "string",
+      "enum": ["all", "none", "some", "some_none", "unknown"]
+    },
+    "statement": {
+      "type": "object",
+      "required": ["type", "subject", "object"],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/quantifierType",
+          "not": { "const": "unknown" }
+        },
+        "subject": { "type": "string", "pattern": "^[XYZ]$" },
+        "object": { "type": "string", "pattern": "^[XYZ]$" }
+      },
+      "additionalProperties": false
+    },
+    "conclusion": {
+      "type": "object",
+      "properties": {
+        "type": { "$ref": "#/$defs/quantifierType" },
+        "subject": { "type": "string", "pattern": "^[XYZ]$" },
+        "object": { "type": "string", "pattern": "^[XYZ]$" }
+      },
+      "required": ["type", "subject", "object"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

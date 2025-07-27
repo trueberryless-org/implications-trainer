@@ -1,0 +1,472 @@
+{
+  "$schema": "./schema.json",
+  "data": [
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [{ "type": "all", "subject": "X", "object": "Z" }]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "none", "subject": "X", "object": "Z" },
+        { "type": "none", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [{ "type": "some", "subject": "X", "object": "Z" }]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "Y", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "X", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "X" }
+      ]
+    },
+
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "some", "subject": "Y", "object": "Z" },
+        { "type": "some", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "some", "subject": "Y", "object": "Z" },
+        { "type": "some", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "some", "subject": "Y", "object": "Z" },
+        { "type": "some", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "all", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "some", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "X", "object": "Y" },
+        { "type": "some_none", "subject": "X", "object": "Z" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+
+    {
+      "statements": [
+        { "type": "all", "subject": "Y", "object": "X" },
+        { "type": "all", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "Y", "object": "X" },
+        { "type": "none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "none", "subject": "Y", "object": "Z" },
+        { "type": "none", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "Y", "object": "X" },
+        { "type": "some", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "all", "subject": "Y", "object": "X" },
+        { "type": "some_none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [{ "type": "some_none", "subject": "Z", "object": "Y" }]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "Y", "object": "X" },
+        { "type": "all", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "none", "subject": "Y", "object": "Z" },
+        { "type": "none", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "Y", "object": "X" },
+        { "type": "none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "Y", "object": "X" },
+        { "type": "some", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "none", "subject": "Y", "object": "X" },
+        { "type": "some_none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "Y", "object": "X" },
+        { "type": "all", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "Y", "object": "X" },
+        { "type": "none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [{ "type": "some_none", "subject": "Y", "object": "Z" }]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "Y", "object": "X" },
+        { "type": "some", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some", "subject": "Y", "object": "X" },
+        { "type": "some_none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "Y", "object": "X" },
+        { "type": "all", "subject": "Z", "object": "X" }
+      ],
+      "correct": [{ "type": "some_none", "subject": "Y", "object": "Z" }]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "Y", "object": "X" },
+        { "type": "none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "Y", "object": "X" },
+        { "type": "some", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    },
+    {
+      "statements": [
+        { "type": "some_none", "subject": "Y", "object": "X" },
+        { "type": "some_none", "subject": "Z", "object": "X" }
+      ],
+      "correct": [
+        { "type": "unknown", "subject": "Y", "object": "Z" },
+        { "type": "unknown", "subject": "Z", "object": "Y" }
+      ]
+    }
+  ]
+}
