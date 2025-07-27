@@ -69,8 +69,6 @@ const quiz = generateQuiz(lang);
       if (answered) return;
       answered = true;
 
-      const isCorrect = btn.dataset.correct === "true";
-
       buttons.forEach((b) => {
         const correct = b.dataset.correct === "true";
         b.classList.add(correct ? 'correct' : 'wrong');
