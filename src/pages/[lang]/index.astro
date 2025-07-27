@@ -19,5 +19,5 @@ export async function getStaticPaths() {
 
 <Base>
   <h1>🧠 {t("title")}</h1>
-  <QuizView client:load />
+  <QuizView server:defer />
 </Base>
