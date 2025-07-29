@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import QuizView from "../../components/QuizView.astro";
 import { languages } from '../../i18n/ui';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import QuizViewFallback from '../../components/QuizViewFallback.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -20,5 +21,7 @@ export async function getStaticPaths() {
 
 <Base>
   <h1>🧠 {t("title")}</h1>
-  <QuizView server:defer />
+  <QuizView server:defer>
+    <QuizViewFallback slot='fallback'/>
+  </QuizView>
 </Base>

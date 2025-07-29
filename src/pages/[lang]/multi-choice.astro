@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import MultiQuizView from '../../components/MultiQuizView.astro';
 import { languages } from '../../i18n/ui';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import MultiQuizViewFallback from '../../components/MultiQuizViewFallback.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -20,5 +21,7 @@ export async function getStaticPaths() {
 
 <Base>
   <h1>🧠 {t("title")}</h1>
-  <MultiQuizView server:defer />
+  <MultiQuizView server:defer>
+    <MultiQuizViewFallback slot='fallback'/>
+  </MultiQuizView>
 </Base>
