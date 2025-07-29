@@ -2,7 +2,7 @@
 import '@fontsource-variable/atkinson-hyperlegible-next';
 import "../../styles/global.css";
 import Base from '../../layouts/Base.astro';
-import QuizView from "../../components/QuizView.astro";
+import MultiQuizView from '../../components/MultiQuizView.astro';
 import { languages } from '../../i18n/ui';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
@@ -20,5 +20,5 @@ export async function getStaticPaths() {
 
 <Base>
   <h1>🧠 {t("title")}</h1>
-  <QuizView server:defer />
+  <MultiQuizView server:defer />
 </Base>

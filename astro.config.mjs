@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-import netlify from "@astrojs/netlify";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,5 +9,7 @@ export default defineConfig({
     "/": "/en/",
   },
 
-  adapter: netlify(),
+  adapter: node({
+    mode: "standalone",
+  }),
 });

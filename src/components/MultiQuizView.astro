@@ -1,6 +1,6 @@
 ---
-import { generateQuiz } from "./QuizGenerator.ts";
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { generateQuiz } from "./MultiQuizGenerator.js";
+import { getLangFromUrl, useTranslations } from '../i18n/utils.js';
 
 const referer = Astro.request.headers.get('Referer');
 const url = new URL(referer);
@@ -21,25 +21,27 @@ const quiz = generateQuiz(lang);
         </div>
     </div>
 
-    <form class="quiz-form" onsubmit="event.preventDefault()">
+    <form id="quiz-form" class="quiz-form" onsubmit="event.preventDefault()">
         <div class="options-container">
             {quiz.answers.map((answer, index) => (
-                <button
-                    type="button"
-                    class="option-button"
-                    data-option={answer.sentence}
-                    data-correct={answer.isCorrect ? "true" : "false"}
-                    data-index={index}
-                >
+                <label class="option-checkbox" data-index={index} data-correct={answer.isCorrect ? "true" : "false"}>
+                    <input type="checkbox" class="checkbox-input" name="option" value={index} />
+                    <div class="checkbox-custom"></div>
                     <span class="option-text">{answer.sentence}</span>
                     <div class="option-indicator"></div>
-                </button>
+                </label>
             ))}
+        </div>
+        
+        <div class="submit-container">
+            <button type="submit" class="submit-button">
+                ✓ {t("ui.checkAnswers")}
+            </button>
         </div>
     </form>
 
     <div class="quiz-actions">
-        <a href={`/${lang}/`} class="action-button secondary">
+        <a href={`/${lang}/multi-choice`} class="action-button secondary">
             {t("ui.newQuestion")}
         </a>
     </div>
@@ -93,38 +95,62 @@ const quiz = generateQuiz(lang);
         margin-bottom: 2rem;
     }
 
-    .option-button {
+    .option-checkbox {
         position: relative;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         padding: 1.5rem 1.75rem;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1rem;
-        font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
-        overflow: hidden;
+        gap: 1rem;
     }
 
-    .option-button:hover:not(.answered) {
+    .option-checkbox:hover:not(.answered) {
         background: rgba(255, 255, 255, 0.08);
         border-color: rgba(255, 255, 255, 0.2);
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
-    .option-button:active:not(.answered) {
-        transform: translateY(0);
+    .checkbox-input {
+        display: none;
+    }
+
+    .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        position: relative;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .checkbox-input:checked + .checkbox-custom {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .checkbox-input:checked + .checkbox-custom::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
     }
 
     .option-text {
         flex: 1;
-        text-align: left;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        font-weight: 500;
         line-height: 1.4;
     }
 
@@ -132,25 +158,27 @@ const quiz = generateQuiz(lang);
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.3);
         transition: all 0.3s ease;
         flex-shrink: 0;
-        margin-left: 1rem;
+        opacity: 0;
     }
 
-    .option-button.correct {
+    .option-checkbox.correct {
         background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(39, 174, 96, 0.1) 100%);
         border-color: rgba(46, 204, 113, 0.5);
+    }
+
+    .option-checkbox.correct .option-text {
         color: #2ecc71;
     }
 
-    .option-button.correct .option-indicator {
+    .option-checkbox.correct .option-indicator {
         background: #2ecc71;
-        border-color: #2ecc71;
+        opacity: 1;
         box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
     }
 
-    .option-button.correct .option-indicator::after {
+    .option-checkbox.correct .option-indicator::after {
         content: '✓';
         display: flex;
         align-items: center;
@@ -160,19 +188,22 @@ const quiz = generateQuiz(lang);
         font-size: 12px;
     }
 
-    .option-button.wrong {
+    .option-checkbox.wrong {
         background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(192, 57, 43, 0.1) 100%);
         border-color: rgba(231, 76, 60, 0.5);
+    }
+
+    .option-checkbox.wrong .option-text {
         color: #e74c3c;
     }
 
-    .option-button.wrong .option-indicator {
+    .option-checkbox.wrong .option-indicator {
         background: #e74c3c;
-        border-color: #e74c3c;
+        opacity: 1;
         box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
     }
 
-    .option-button.wrong .option-indicator::after {
+    .option-checkbox.wrong .option-indicator::after {
         content: '✕';
         display: flex;
         align-items: center;
@@ -180,6 +211,38 @@ const quiz = generateQuiz(lang);
         color: white;
         font-weight: bold;
         font-size: 12px;
+    }
+
+    .submit-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    .submit-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(41, 128, 185, 0.9) 100%);
+        border: 1px solid rgba(52, 152, 219, 0.6);
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .submit-button:hover {
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.9) 0%, rgba(41, 128, 185, 1) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    }
+
+    .submit-button:active {
+        transform: translateY(0);
     }
 
     .quiz-actions {
@@ -225,7 +288,7 @@ const quiz = generateQuiz(lang);
             font-size: 1rem;
         }
 
-        .option-button {
+        .option-checkbox {
             padding: 1.25rem 1.5rem;
         }
 
@@ -235,20 +298,31 @@ const quiz = generateQuiz(lang);
     }
 </style>
 
-<script type="module" define:vars={{ quiz }}>
-    const buttons = document.querySelectorAll('button.option-button');
+<script type="module">
+    const form = document.getElementById('quiz-form');
     let answered = false;
 
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if (answered) return;
-            answered = true;
+    form.addEventListener('submit', () => {
+        if (answered) return;
+        answered = true;
 
-            buttons.forEach((b) => {
-                const correct = b.dataset.correct === "true";
-                b.classList.add(correct ? 'correct' : 'wrong');
-                b.classList.add('answered');
-            });
+        const selectedIndices = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(cb => cb.value);
+        
+        const options = form.querySelectorAll('.option-checkbox');
+        
+        options.forEach((option) => {
+            const isCorrect = option.dataset.correct === "true";
+            const index = option.dataset.index;
+            const isSelected = selectedIndices.includes(index);
+            
+            option.classList.add('answered');
+            
+            if (isCorrect) {
+                option.classList.add('correct');
+            } else if (isSelected) {
+                option.classList.add('wrong');
+            }
         });
     });
 </script>

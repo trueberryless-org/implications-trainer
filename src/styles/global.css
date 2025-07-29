@@ -1,31 +1,68 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  font-family: "Atkinson Hyperlegible Next Variable", sans-serif;
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
 body {
-  font-family: system-ui, sans-serif;
-  background-color: #f4f4f5;
-  color: #111;
-  padding: 2rem;
-  max-width: 700px;
-  margin: auto;
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
 }
 
-button {
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
-  cursor: pointer;
+  max-width: 100%;
 }
 
-.option {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  margin: 0.25rem 0;
-  border-radius: 6px;
-  cursor: pointer;
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
 }
 
-.correct {
-  background-color: #a7f3d0;
-  border-color: #10b981;
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
 }
 
-.wrong {
-  background-color: #fecaca;
-  border-color: #ef4444;
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
 }

@@ -8,7 +8,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "6.2.5",
-    "astro": "5.6.1"
+    "@astrojs/node": "^9.3.1",
+    "@fontsource-variable/atkinson-hyperlegible-next": "^5.2.4",
+    "astro": "^5.12.3"
   }
 }

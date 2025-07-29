@@ -10,7 +10,10 @@
   "ui": {
     "statement1": "Statement 1",
     "statement2": "Statement 2",
-    "newQuestion": "🔄 New Question"
+    "newQuestion": "🔄 New Question",
+    "checkAnswers": "Check Answers",
+    "singleChoice": "Single Choice (MedAT)",
+    "multipleChoice": "Multiple Choice (TU Vienna)"
   },
   "terms": [
     "mammals",
