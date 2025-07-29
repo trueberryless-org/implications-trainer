@@ -3,11 +3,13 @@ import { defineConfig } from "astro/config";
 
 import netlify from "@astrojs/netlify";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   redirects: {
     "/": "/en/",
   },
 
-  adapter: netlify(),
+  adapter: vercel(),
 });
