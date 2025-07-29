@@ -21,7 +21,7 @@ const quiz = generateQuiz(lang);
         </div>
     </div>
 
-    <form id="quiz-form" class="quiz-form" onsubmit="event.preventDefault()">
+    <form id="quiz-form" class="quiz-form">
         <div class="options-container">
             {quiz.answers.map((answer, index) => (
                 <label class="option-checkbox" data-index={index} data-correct={answer.isCorrect ? "true" : "false"}>
@@ -302,7 +302,8 @@ const quiz = generateQuiz(lang);
     const form = document.getElementById('quiz-form');
     let answered = false;
 
-    form.addEventListener('submit', () => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
         if (answered) return;
         answered = true;
 

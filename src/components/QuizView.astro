@@ -21,7 +21,7 @@ const quiz = generateQuiz(lang);
         </div>
     </div>
 
-    <form class="quiz-form" onsubmit="event.preventDefault()">
+    <form class="quiz-form">
         <div class="options-container">
             {quiz.answers.map((answer, index) => (
                 <button
@@ -240,7 +240,8 @@ const quiz = generateQuiz(lang);
     let answered = false;
 
     buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             if (answered) return;
             answered = true;
 
