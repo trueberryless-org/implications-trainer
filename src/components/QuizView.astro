@@ -1,13 +1,15 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
+export const prerender = false;
+
 const referer = Astro.request.headers.get('Referer');
 const url = new URL(referer || Astro.url);
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 
 // Fetch quiz data from the API endpoint
-const quizResponse = await fetch(`${Astro.url.origin}/api/quiz?lang=${lang}`);
+const quizResponse = await fetch(`${url.origin}/api/quiz?lang=${lang}`);
 const quiz = await quizResponse.json();
 ---
 
