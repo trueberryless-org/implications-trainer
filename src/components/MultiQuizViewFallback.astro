@@ -1,296 +1,331 @@
 <!-- Multi Choice Quiz Skeleton (6 answers) -->
 <div class="quiz-container multi-choice-skeleton">
-    <div class="quiz-statements skeleton-container">
-        <div class="statement">
-            <span class="statement-label skeleton-text skeleton-label"></span>
-            <span class="statement-text skeleton-text skeleton-statement"></span>
-        </div>
-        <div class="statement">
-            <span class="statement-label skeleton-text skeleton-label"></span>
-            <span class="statement-text skeleton-text skeleton-statement"></span>
-        </div>
+  <div class="quiz-statements skeleton-container">
+    <div class="statement">
+      <span class="statement-label skeleton-text skeleton-label"></span>
+      <span class="statement-text skeleton-text skeleton-statement"></span>
+    </div>
+    <div class="statement">
+      <span class="statement-label skeleton-text skeleton-label"></span>
+      <span class="statement-text skeleton-text skeleton-statement"></span>
+    </div>
+  </div>
+
+  <div class="quiz-form">
+    <div class="options-container">
+      <!-- 6 skeleton options for multi choice -->
+      <div class="option-checkbox skeleton-option">
+        <div class="checkbox-custom skeleton-checkbox"></div>
+        <span class="skeleton-text skeleton-option-text"></span>
+      </div>
+      <div class="option-checkbox skeleton-option">
+        <div class="checkbox-custom skeleton-checkbox"></div>
+        <span class="skeleton-text skeleton-option-text"></span>
+      </div>
+      <div class="option-checkbox skeleton-option">
+        <div class="checkbox-custom skeleton-checkbox"></div>
+        <span class="skeleton-text skeleton-option-text"></span>
+      </div>
+      <div class="option-checkbox skeleton-option">
+        <div class="checkbox-custom skeleton-checkbox"></div>
+        <span class="skeleton-text skeleton-option-text"></span>
+      </div>
+      <div class="option-checkbox skeleton-option">
+        <div class="checkbox-custom skeleton-checkbox"></div>
+        <span class="skeleton-text skeleton-option-text"></span>
+      </div>
+      <div class="option-checkbox skeleton-option">
+        <div class="checkbox-custom skeleton-checkbox"></div>
+        <span class="skeleton-text skeleton-option-text"></span>
+      </div>
     </div>
 
-    <div class="quiz-form">
-        <div class="options-container">
-            <!-- 6 skeleton options for multi choice -->
-            <div class="option-checkbox skeleton-option">
-                <div class="checkbox-custom skeleton-checkbox"></div>
-                <span class="skeleton-text skeleton-option-text"></span>
-            </div>
-            <div class="option-checkbox skeleton-option">
-                <div class="checkbox-custom skeleton-checkbox"></div>
-                <span class="skeleton-text skeleton-option-text"></span>
-            </div>
-            <div class="option-checkbox skeleton-option">
-                <div class="checkbox-custom skeleton-checkbox"></div>
-                <span class="skeleton-text skeleton-option-text"></span>
-            </div>
-            <div class="option-checkbox skeleton-option">
-                <div class="checkbox-custom skeleton-checkbox"></div>
-                <span class="skeleton-text skeleton-option-text"></span>
-            </div>
-            <div class="option-checkbox skeleton-option">
-                <div class="checkbox-custom skeleton-checkbox"></div>
-                <span class="skeleton-text skeleton-option-text"></span>
-            </div>
-            <div class="option-checkbox skeleton-option">
-                <div class="checkbox-custom skeleton-checkbox"></div>
-                <span class="skeleton-text skeleton-option-text"></span>
-            </div>
-        </div>
-        
-        <div class="submit-container">
-            <div class="submit-button skeleton-submit">
-                <span class="skeleton-text skeleton-submit-text"></span>
-            </div>
-        </div>
+    <div class="submit-container">
+      <div class="submit-button skeleton-submit">
+        <span class="skeleton-text skeleton-submit-text"></span>
+      </div>
     </div>
+  </div>
 
-    <div class="quiz-actions">
-        <div class="action-button secondary skeleton-button">
-            <span class="skeleton-text skeleton-button-text"></span>
-        </div>
+  <div class="quiz-actions">
+    <div class="action-button secondary skeleton-button">
+      <span class="skeleton-text skeleton-button-text"></span>
     </div>
+  </div>
 </div>
 
 <style>
-    /* Base quiz container styles - inherit from main components */
-    .quiz-container {
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto;
-    }
+  /* Base quiz container styles - inherit from main components */
+  .quiz-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
+  .quiz-statements {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(20px);
+  }
+
+  .statement {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .statement:last-child {
+    margin-bottom: 0;
+  }
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .option-button,
+  .option-checkbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.58rem 1.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    gap: 1rem;
+  }
+
+  .option-button {
+    justify-content: space-between;
+  }
+
+  .option-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .submit-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+
+  .quiz-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem 2.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+
+  .action-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Skeleton-specific styles */
+  .skeleton-text {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Skeleton element sizes */
+  .skeleton-label {
+    width: 100px;
+    height: 16px;
+    margin-bottom: 0.6rem;
+  }
+
+  .skeleton-statement {
+    width: 100%;
+    height: 20px;
+  }
+
+  .skeleton-option-text {
+    flex: 1;
+    height: 16px;
+    width: 80%;
+  }
+
+  .skeleton-indicator {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .skeleton-checkbox {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .skeleton-submit {
+    background: linear-gradient(
+      90deg,
+      rgba(52, 152, 219, 0.3) 0%,
+      rgba(52, 152, 219, 0.5) 50%,
+      rgba(52, 152, 219, 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+  }
+
+  .skeleton-submit-text {
+    width: 120px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .skeleton-button {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .skeleton-button-text {
+    width: 100px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Variation in skeleton text widths for more realistic loading */
+  .skeleton-option:nth-child(1) .skeleton-option-text {
+    width: 85%;
+  }
+  .skeleton-option:nth-child(2) .skeleton-option-text {
+    width: 70%;
+  }
+  .skeleton-option:nth-child(3) .skeleton-option-text {
+    width: 90%;
+  }
+  .skeleton-option:nth-child(4) .skeleton-option-text {
+    width: 75%;
+  }
+  .skeleton-option:nth-child(5) .skeleton-option-text {
+    width: 80%;
+  }
+  .skeleton-option:nth-child(6) .skeleton-option-text {
+    width: 88%;
+  }
+
+  /* Statement text variations */
+  .statement:nth-child(1) .skeleton-statement {
+    width: 95%;
+  }
+  .statement:nth-child(2) .skeleton-statement {
+    width: 85%;
+  }
+
+  /* Staggered animation delays for more organic feel */
+  .skeleton-option:nth-child(1) .skeleton-text {
+    animation-delay: 0s;
+  }
+  .skeleton-option:nth-child(2) .skeleton-text {
+    animation-delay: 0.1s;
+  }
+  .skeleton-option:nth-child(3) .skeleton-text {
+    animation-delay: 0.2s;
+  }
+  .skeleton-option:nth-child(4) .skeleton-text {
+    animation-delay: 0.3s;
+  }
+  .skeleton-option:nth-child(5) .skeleton-text {
+    animation-delay: 0.4s;
+  }
+  .skeleton-option:nth-child(6) .skeleton-text {
+    animation-delay: 0.5s;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
     .quiz-statements {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        backdrop-filter: blur(20px);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .statement {
-        margin-bottom: 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+    .option-button,
+    .option-checkbox {
+      padding: 1.3rem 1.5rem;
     }
 
-    .statement:last-child {
-        margin-bottom: 0;
-    }
-
-    .options-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .option-button, .option-checkbox {
-        position: relative;
-        display: flex;
-        align-items: center;
-        padding: 1.58rem 1.75rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        backdrop-filter: blur(10px);
-        gap: 1rem;
-    }
-
-    .option-button {
-        justify-content: space-between;
-    }
-
-    .option-indicator {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        flex-shrink: 0;
-    }
-
-    .checkbox-custom {
-        width: 20px;
-        height: 20px;
-        border-radius: 4px;
-        flex-shrink: 0;
-    }
-
-    .submit-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 2rem;
-    }
-
-    .submit-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        backdrop-filter: blur(10px);
-    }
-
-    .quiz-actions {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    .action-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1.25rem 2.5rem;
-        border-radius: 10px;
-        backdrop-filter: blur(10px);
-    }
-
-    .action-button.secondary {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    /* Skeleton-specific styles */
-    .skeleton-text {
-        background: linear-gradient(90deg, 
-            rgba(255, 255, 255, 0.1) 0%, 
-            rgba(255, 255, 255, 0.2) 50%, 
-            rgba(255, 255, 255, 0.1) 100%
-        );
-        background-size: 200% 100%;
-        border-radius: 4px;
-        animation: shimmer 1.5s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-        0% {
-            background-position: -200% 0;
-        }
-        100% {
-            background-position: 200% 0;
-        }
-    }
-
-    /* Skeleton element sizes */
     .skeleton-label {
-        width: 100px;
-        height: 16px;
-        margin-bottom: 0.6rem;
+      height: 14px;
     }
 
     .skeleton-statement {
-        width: 100%;
-        height: 20px;
+      height: 18px;
     }
 
     .skeleton-option-text {
-        flex: 1;
-        height: 16px;
-        width: 80%;
+      height: 16px;
     }
-
-    .skeleton-indicator {
-        background: linear-gradient(90deg, 
-            rgba(255, 255, 255, 0.05) 0%, 
-            rgba(255, 255, 255, 0.15) 50%, 
-            rgba(255, 255, 255, 0.05) 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s ease-in-out infinite;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .skeleton-checkbox {
-        background: linear-gradient(90deg, 
-            rgba(255, 255, 255, 0.05) 0%, 
-            rgba(255, 255, 255, 0.15) 50%, 
-            rgba(255, 255, 255, 0.05) 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s ease-in-out infinite;
-        border: 2px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .skeleton-submit {
-        background: linear-gradient(90deg, 
-            rgba(52, 152, 219, 0.3) 0%, 
-            rgba(52, 152, 219, 0.5) 50%, 
-            rgba(52, 152, 219, 0.3) 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s ease-in-out infinite;
-        border: 1px solid rgba(52, 152, 219, 0.3);
-    }
-
-    .skeleton-submit-text {
-        width: 120px;
-        height: 16px;
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    .skeleton-button {
-        background: linear-gradient(90deg, 
-            rgba(255, 255, 255, 0.05) 0%, 
-            rgba(255, 255, 255, 0.15) 50%, 
-            rgba(255, 255, 255, 0.05) 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s ease-in-out infinite;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .skeleton-button-text {
-        width: 100px;
-        height: 16px;
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Variation in skeleton text widths for more realistic loading */
-    .skeleton-option:nth-child(1) .skeleton-option-text { width: 85%; }
-    .skeleton-option:nth-child(2) .skeleton-option-text { width: 70%; }
-    .skeleton-option:nth-child(3) .skeleton-option-text { width: 90%; }
-    .skeleton-option:nth-child(4) .skeleton-option-text { width: 75%; }
-    .skeleton-option:nth-child(5) .skeleton-option-text { width: 80%; }
-    .skeleton-option:nth-child(6) .skeleton-option-text { width: 88%; }
-
-    /* Statement text variations */
-    .statement:nth-child(1) .skeleton-statement { width: 95%; }
-    .statement:nth-child(2) .skeleton-statement { width: 85%; }
-
-    /* Staggered animation delays for more organic feel */
-    .skeleton-option:nth-child(1) .skeleton-text { animation-delay: 0s; }
-    .skeleton-option:nth-child(2) .skeleton-text { animation-delay: 0.1s; }
-    .skeleton-option:nth-child(3) .skeleton-text { animation-delay: 0.2s; }
-    .skeleton-option:nth-child(4) .skeleton-text { animation-delay: 0.3s; }
-    .skeleton-option:nth-child(5) .skeleton-text { animation-delay: 0.4s; }
-    .skeleton-option:nth-child(6) .skeleton-text { animation-delay: 0.5s; }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-        .quiz-statements {
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .option-button, .option-checkbox {
-            padding: 1.3rem 1.5rem;
-        }
-
-        .skeleton-label {
-            height: 14px;
-        }
-
-        .skeleton-statement {
-            height: 18px;
-        }
-
-        .skeleton-option-text {
-            height: 16px;
-        }
-    }
+  }
 </style>

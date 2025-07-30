@@ -1,6 +1,10 @@
 // src/pages/api/quiz.ts
 import type { APIRoute } from "astro";
+
 import quizData from "../../data/quiz-templates.json";
+// Load localized terms and templates
+import de from "../../i18n/de.json";
+import en from "../../i18n/en.json";
 
 export const prerender = false;
 
@@ -23,7 +27,13 @@ export type QuizItem = {
   correct: Conclusion[];
 };
 
-const allTypes: QuantifierType[] = ["all", "none", "some", "some_none", "unknown"];
+const allTypes: QuantifierType[] = [
+  "all",
+  "none",
+  "some",
+  "some_none",
+  "unknown",
+];
 
 function shuffle<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -37,10 +47,6 @@ function shuffle<T>(array: T[]): T[] {
 function getRandomElement<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
-
-// Load localized terms and templates
-import de from "../../i18n/de.json";
-import en from "../../i18n/en.json";
 
 const termsMap = {
   de: de.terms,
@@ -67,7 +73,9 @@ function generateQuiz(lang: "de" | "en") {
   const mapVarsToTerms = (v: "X" | "Y" | "Z") => termMap[v];
 
   const baseSentences = item.statements.map((s) =>
-    t[s.type].replace("{sub}", mapVarsToTerms(s.subject)).replace("{obj}", mapVarsToTerms(s.object))
+    t[s.type]
+      .replace("{sub}", mapVarsToTerms(s.subject))
+      .replace("{obj}", mapVarsToTerms(s.object))
   );
 
   const correct = getRandomElement(item.correct);
@@ -85,11 +93,16 @@ function generateQuiz(lang: "de" | "en") {
   // alle anderen mischen
   const otherAnswers = shuffle(answers.filter((a) => a.type !== "unknown"));
   // unknown am Ende anhängen (wenn vorhanden)
-  const finalAnswers = unknownAnswer ? [...otherAnswers, unknownAnswer] : otherAnswers;
+  const finalAnswers = unknownAnswer
+    ? [...otherAnswers, unknownAnswer]
+    : otherAnswers;
 
   return {
     baseSentences,
-    answers: finalAnswers.map(({ sentence, isCorrect }) => ({ sentence, isCorrect })),
+    answers: finalAnswers.map(({ sentence, isCorrect }) => ({
+      sentence,
+      isCorrect,
+    })),
   };
 }
 
@@ -100,12 +113,15 @@ export const GET: APIRoute = async ({ url, request }) => {
 
     // Validate language
     if (!["de", "en"].includes(lang)) {
-      return new Response(JSON.stringify({ error: "Invalid language. Supported: de, en" }), {
-        status: 400,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response(
+        JSON.stringify({ error: "Invalid language. Supported: de, en" }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
     const quiz = generateQuiz(lang);

@@ -1,18 +1,18 @@
 ---
-import { languages } from '../i18n/ui';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { languages } from "../i18n/ui";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const currentPath = Astro.url.pathname;
-const [, currentLang, ...restPathParts] = currentPath.split('/');
-const restPath = restPathParts.join('/');
+const [, currentLang, ...restPathParts] = currentPath.split("/");
+const restPath = restPathParts.join("/");
 ---
+
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-content">
-      
       <!-- Left side - could add logo or text here if needed -->
       <div class="footer-left">
         <!-- Empty space for now, can add branding/logo later -->
@@ -27,31 +27,38 @@ const restPath = restPathParts.join('/');
             <span class="dropdown-label">
               {languages[currentLang] ?? currentLang}
             </span>
-            <svg width="14" height="14" viewBox="0 0 15 15" class="dropdown-arrow" aria-hidden="true">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 15 15"
+              class="dropdown-arrow"
+              aria-hidden="true"
+            >
               <path
                 d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
                 fill="currentColor"
                 fill-rule="evenodd"
-                clip-rule="evenodd"
-              />
+                clip-rule="evenodd"></path>
             </svg>
           </button>
           <div id="lang-dropdown-menu" class="dropdown-menu" hidden>
-            {Object.entries(languages).map(([code, label]) => {
-              const newPath = `/${code}/${restPath}`;
-              const isCurrent = code === currentLang;
-              return (
-                <a
-                  href={newPath}
-                  class:list={{
-                    'dropdown-item': true,
-                    'dropdown-item-current': isCurrent,
-                  }}
-                >
-                  {label}
-                </a>
-              );
-            })}
+            {
+              Object.entries(languages).map(([code, label]) => {
+                const newPath = `/${code}/${restPath}`;
+                const isCurrent = code === currentLang;
+                return (
+                  <a
+                    href={newPath}
+                    class:list={{
+                      "dropdown-item": true,
+                      "dropdown-item-current": isCurrent,
+                    }}
+                  >
+                    {label}
+                  </a>
+                );
+              })
+            }
           </div>
         </div>
 
@@ -60,23 +67,32 @@ const restPath = restPathParts.join('/');
           <button id="quiz-dropdown-btn" class="dropdown-btn">
             <span class="dropdown-icon">🧠</span>
             <span class="dropdown-label">
-              {currentPath.includes("multi-choice") ? t("ui.multipleChoice") : t("ui.singleChoice")}
+              {
+                currentPath.includes("multi-choice")
+                  ? t("ui.multipleChoice")
+                  : t("ui.singleChoice")
+              }
             </span>
-            <svg width="14" height="14" viewBox="0 0 15 15" class="dropdown-arrow" aria-hidden="true">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 15 15"
+              class="dropdown-arrow"
+              aria-hidden="true"
+            >
               <path
                 d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"
                 fill="currentColor"
                 fill-rule="evenodd"
-                clip-rule="evenodd"
-              />
+                clip-rule="evenodd"></path>
             </svg>
           </button>
           <div id="quiz-dropdown-menu" class="dropdown-menu" hidden>
             <a
               href={`/${currentLang}/`}
               class:list={{
-                'dropdown-item': true,
-                'dropdown-item-current': !currentPath.includes("multi-choice"),
+                "dropdown-item": true,
+                "dropdown-item-current": !currentPath.includes("multi-choice"),
               }}
             >
               {t("ui.singleChoice")}
@@ -84,8 +100,8 @@ const restPath = restPathParts.join('/');
             <a
               href={`/${currentLang}/multi-choice`}
               class:list={{
-                'dropdown-item': true,
-                'dropdown-item-current': currentPath.includes("multi-choice"),
+                "dropdown-item": true,
+                "dropdown-item-current": currentPath.includes("multi-choice"),
               }}
             >
               {t("ui.multipleChoice")}
@@ -93,7 +109,6 @@ const restPath = restPathParts.join('/');
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </footer>
@@ -196,7 +211,7 @@ const restPath = restPathParts.join('/');
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 0.5rem;
-    box-shadow: 
+    box-shadow:
       0 10px 25px -5px rgba(0, 0, 0, 0.3),
       0 4px 6px -2px rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(20px);
@@ -249,12 +264,12 @@ const restPath = restPathParts.join('/');
     .dropdown {
       min-width: 120px;
     }
-    
+
     .dropdown-btn {
       padding: 0.625rem 0.875rem;
       font-size: 0.8rem;
     }
-    
+
     .dropdown-label {
       font-size: 0.8rem;
     }
@@ -268,63 +283,63 @@ const restPath = restPathParts.join('/');
 
     if (!btn || !menu) return;
 
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const isOpen = !menu.hidden;
-      
+
       // Close all other dropdowns
-      document.querySelectorAll('.dropdown-menu').forEach(m => {
+      document.querySelectorAll(".dropdown-menu").forEach((m) => {
         if (m !== menu) m.hidden = true;
       });
-      
+
       // Toggle current dropdown
       menu.hidden = isOpen;
-      
+
       // Rotate arrow based on state
-      const arrow = btn.querySelector('.dropdown-arrow');
+      const arrow = btn.querySelector(".dropdown-arrow");
       if (arrow) {
-        arrow.style.transform = menu.hidden ? 'rotate(0deg)' : 'rotate(180deg)';
+        arrow.style.transform = menu.hidden ? "rotate(0deg)" : "rotate(180deg)";
       }
     });
   };
 
   // Initialize dropdowns
-  toggleDropdown('lang-dropdown-btn', 'lang-dropdown-menu');
-  toggleDropdown('quiz-dropdown-btn', 'quiz-dropdown-menu');
+  toggleDropdown("lang-dropdown-btn", "lang-dropdown-menu");
+  toggleDropdown("quiz-dropdown-btn", "quiz-dropdown-menu");
 
   // Close dropdowns when clicking outside
-  document.addEventListener('click', (e) => {
-    const dropdowns = document.querySelectorAll('.dropdown');
+  document.addEventListener("click", (e) => {
+    const dropdowns = document.querySelectorAll(".dropdown");
     let clickedInside = false;
-    
-    dropdowns.forEach(dropdown => {
+
+    dropdowns.forEach((dropdown) => {
       if (dropdown.contains(e.target)) {
         clickedInside = true;
       }
     });
-    
+
     if (!clickedInside) {
-      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      document.querySelectorAll(".dropdown-menu").forEach((menu) => {
         menu.hidden = true;
         // Reset arrow rotation
         const btn = menu.previousElementSibling;
-        const arrow = btn?.querySelector('.dropdown-arrow');
+        const arrow = btn?.querySelector(".dropdown-arrow");
         if (arrow) {
-          arrow.style.transform = 'rotate(0deg)';
+          arrow.style.transform = "rotate(0deg)";
         }
       });
     }
   });
 
   // Close dropdowns on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".dropdown-menu").forEach((menu) => {
         menu.hidden = true;
         const btn = menu.previousElementSibling;
-        const arrow = btn?.querySelector('.dropdown-arrow');
+        const arrow = btn?.querySelector(".dropdown-arrow");
         if (arrow) {
-          arrow.style.transform = 'rotate(0deg)';
+          arrow.style.transform = "rotate(0deg)";
         }
       });
     }
