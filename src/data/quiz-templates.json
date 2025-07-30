@@ -191,10 +191,7 @@
         { "type": "all", "subject": "X", "object": "Y" },
         { "type": "some_none", "subject": "X", "object": "Z" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "Y", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "Y" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "Y", "object": "Z" }]
     },
     {
       "statements": [
@@ -281,10 +278,7 @@
         { "type": "some_none", "subject": "X", "object": "Y" },
         { "type": "all", "subject": "X", "object": "Z" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "Y", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "Y" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "Z", "object": "Y" }]
     },
     {
       "statements": [
