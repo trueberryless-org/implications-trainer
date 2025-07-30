@@ -1,9 +1,9 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils.js';
+import { getLangFromUrl, useTranslations } from "../i18n/utils.js";
 
 export const prerender = false;
 
-const referer = Astro.request.headers.get('Referer');
+const referer = Astro.request.headers.get("Referer");
 const url = new URL(referer || Astro.url);
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
@@ -14,320 +14,348 @@ const quiz = await quizResponse.json();
 ---
 
 <div class="quiz-container">
-    <div class="quiz-statements">
-        <div class="statement">
-            <span class="statement-label">{t("ui.statement1")}:</span>
-            <span class="statement-text">{quiz.baseSentences[0]}</span>
-        </div>
-        <div class="statement">
-            <span class="statement-label">{t("ui.statement2")}:</span>
-            <span class="statement-text">{quiz.baseSentences[1]}</span>
-        </div>
+  <div class="quiz-statements">
+    <div class="statement">
+      <span class="statement-label">{t("ui.statement1")}:</span>
+      <span class="statement-text">{quiz.baseSentences[0]}</span>
+    </div>
+    <div class="statement">
+      <span class="statement-label">{t("ui.statement2")}:</span>
+      <span class="statement-text">{quiz.baseSentences[1]}</span>
+    </div>
+  </div>
+
+  <form id="quiz-form" class="quiz-form">
+    <div class="options-container">
+      {
+        quiz.answers.map((answer, index) => (
+          <label
+            class="option-checkbox"
+            data-index={index}
+            data-correct={answer.isCorrect ? "true" : "false"}
+          >
+            <input
+              type="checkbox"
+              class="checkbox-input"
+              name="option"
+              value={index}
+            />
+            <div class="checkbox-custom" />
+            <span class="option-text">{answer.sentence}</span>
+            <div class="option-indicator" />
+          </label>
+        ))
+      }
     </div>
 
-    <form id="quiz-form" class="quiz-form">
-        <div class="options-container">
-            {quiz.answers.map((answer, index) => (
-                <label class="option-checkbox" data-index={index} data-correct={answer.isCorrect ? "true" : "false"}>
-                    <input type="checkbox" class="checkbox-input" name="option" value={index} />
-                    <div class="checkbox-custom"></div>
-                    <span class="option-text">{answer.sentence}</span>
-                    <div class="option-indicator"></div>
-                </label>
-            ))}
-        </div>
-        
-        <div class="submit-container">
-            <button type="submit" class="submit-button">
-                ✓ {t("ui.checkAnswers")}
-            </button>
-        </div>
-    </form>
-
-    <div class="quiz-actions">
-        <a href={`/${lang}/multi-choice`} class="action-button secondary">
-            {t("ui.newQuestion")}
-        </a>
+    <div class="submit-container">
+      <button type="submit" class="submit-button">
+        ✓ {t("ui.checkAnswers")}
+      </button>
     </div>
+  </form>
+
+  <div class="quiz-actions">
+    <a href={`/${lang}/multi-choice`} class="action-button secondary">
+      {t("ui.newQuestion")}
+    </a>
+  </div>
 </div>
 
 <style>
-    .quiz-container {
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto;
-    }
+  .quiz-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
+  .quiz-statements {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(20px);
+  }
+
+  .statement {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .statement:last-child {
+    margin-bottom: 0;
+  }
+
+  .statement-label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .statement-text {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.5;
+  }
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .option-checkbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    gap: 1rem;
+  }
+
+  .option-checkbox:hover:not(.answered) {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .checkbox-input {
+    display: none;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .checkbox-input:checked + .checkbox-custom {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .checkbox-input:checked + .checkbox-custom::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .option-text {
+    flex: 1;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .option-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    opacity: 0;
+  }
+
+  .option-checkbox.correct {
+    background: linear-gradient(
+      135deg,
+      rgba(46, 204, 113, 0.2) 0%,
+      rgba(39, 174, 96, 0.1) 100%
+    );
+    border-color: rgba(46, 204, 113, 0.5);
+  }
+
+  .option-checkbox.correct .option-text {
+    color: #2ecc71;
+  }
+
+  .option-checkbox.correct .option-indicator {
+    background: #2ecc71;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+  }
+
+  .option-checkbox.correct .option-indicator::after {
+    content: "✓";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .option-checkbox.wrong {
+    background: linear-gradient(
+      135deg,
+      rgba(231, 76, 60, 0.2) 0%,
+      rgba(192, 57, 43, 0.1) 100%
+    );
+    border-color: rgba(231, 76, 60, 0.5);
+  }
+
+  .option-checkbox.wrong .option-text {
+    color: #e74c3c;
+  }
+
+  .option-checkbox.wrong .option-indicator {
+    background: #e74c3c;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
+  }
+
+  .option-checkbox.wrong .option-indicator::after {
+    content: "✕";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .submit-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(
+      135deg,
+      rgba(52, 152, 219, 0.8) 0%,
+      rgba(41, 128, 185, 0.9) 100%
+    );
+    border: 1px solid rgba(52, 152, 219, 0.6);
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .submit-button:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(52, 152, 219, 0.9) 0%,
+      rgba(41, 128, 185, 1) 100%
+    );
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+  }
+
+  .submit-button:active {
+    transform: translateY(0);
+  }
+
+  .quiz-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .action-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .action-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
     .quiz-statements {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        backdrop-filter: blur(20px);
-    }
-
-    .statement {
-        margin-bottom: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .statement:last-child {
-        margin-bottom: 0;
-    }
-
-    .statement-label {
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .statement-text {
-        font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.95);
-        line-height: 1.5;
-    }
-
-    .options-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 2rem;
+      font-size: 1rem;
     }
 
     .option-checkbox {
-        position: relative;
-        display: flex;
-        align-items: center;
-        padding: 1.5rem 1.75rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        gap: 1rem;
-    }
-
-    .option-checkbox:hover:not(.answered) {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .checkbox-input {
-        display: none;
-    }
-
-    .checkbox-custom {
-        width: 20px;
-        height: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 4px;
-        position: relative;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-    }
-
-    .checkbox-input:checked + .checkbox-custom {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.6);
-    }
-
-    .checkbox-input:checked + .checkbox-custom::after {
-        content: '✓';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
+      padding: 1.25rem 1.5rem;
     }
 
     .option-text {
-        flex: 1;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1rem;
-        font-weight: 500;
-        line-height: 1.4;
+      font-size: 0.95rem;
     }
-
-    .option-indicator {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-        opacity: 0;
-    }
-
-    .option-checkbox.correct {
-        background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(39, 174, 96, 0.1) 100%);
-        border-color: rgba(46, 204, 113, 0.5);
-    }
-
-    .option-checkbox.correct .option-text {
-        color: #2ecc71;
-    }
-
-    .option-checkbox.correct .option-indicator {
-        background: #2ecc71;
-        opacity: 1;
-        box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
-    }
-
-    .option-checkbox.correct .option-indicator::after {
-        content: '✓';
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    .option-checkbox.wrong {
-        background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(192, 57, 43, 0.1) 100%);
-        border-color: rgba(231, 76, 60, 0.5);
-    }
-
-    .option-checkbox.wrong .option-text {
-        color: #e74c3c;
-    }
-
-    .option-checkbox.wrong .option-indicator {
-        background: #e74c3c;
-        opacity: 1;
-        box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
-    }
-
-    .option-checkbox.wrong .option-indicator::after {
-        content: '✕';
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    .submit-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 2rem;
-    }
-
-    .submit-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem 2rem;
-        background: linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(41, 128, 185, 0.9) 100%);
-        border: 1px solid rgba(52, 152, 219, 0.6);
-        border-radius: 10px;
-        color: white;
-        font-weight: 600;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-
-    .submit-button:hover {
-        background: linear-gradient(135deg, rgba(52, 152, 219, 0.9) 0%, rgba(41, 128, 185, 1) 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
-    }
-
-    .submit-button:active {
-        transform: translateY(0);
-    }
-
-    .quiz-actions {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    .action-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.875rem 1.75rem;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-
-    .action-button.secondary {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    .action-button.secondary:hover {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    @media (max-width: 768px) {
-        .quiz-statements {
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .statement-text {
-            font-size: 1rem;
-        }
-
-        .option-checkbox {
-            padding: 1.25rem 1.5rem;
-        }
-
-        .option-text {
-            font-size: 0.95rem;
-        }
-    }
+  }
 </style>
 
 <script type="module">
-    const form = document.getElementById('quiz-form');
-    let answered = false;
+  const form = document.getElementById("quiz-form");
+  let answered = false;
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (answered) return;
-        answered = true;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (answered) return;
+    answered = true;
 
-        const selectedIndices = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
-            .map(cb => cb.value);
-        
-        const options = form.querySelectorAll('.option-checkbox');
-        
-        options.forEach((option) => {
-            const isCorrect = option.dataset.correct === "true";
-            const index = option.dataset.index;
-            const isSelected = selectedIndices.includes(index);
-            
-            option.classList.add('answered');
-            
-            if (isCorrect) {
-                option.classList.add('correct');
-            } else if (isSelected) {
-                option.classList.add('wrong');
-            }
-        });
+    const selectedIndices = Array.from(
+      form.querySelectorAll('input[type="checkbox"]:checked')
+    ).map((cb) => cb.value);
+
+    const options = form.querySelectorAll(".option-checkbox");
+
+    options.forEach((option) => {
+      const isCorrect = option.dataset.correct === "true";
+      const index = option.dataset.index;
+      const isSelected = selectedIndices.includes(index);
+
+      option.classList.add("answered");
+
+      if (isCorrect) {
+        option.classList.add("correct");
+      } else if (isSelected) {
+        option.classList.add("wrong");
+      }
     });
+  });
 </script>

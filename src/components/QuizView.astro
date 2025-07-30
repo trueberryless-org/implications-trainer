@@ -1,9 +1,9 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 export const prerender = false;
 
-const referer = Astro.request.headers.get('Referer');
+const referer = Astro.request.headers.get("Referer");
 const url = new URL(referer || Astro.url);
 const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
@@ -14,246 +14,256 @@ const quiz = await quizResponse.json();
 ---
 
 <div class="quiz-container">
-    <div class="quiz-statements">
-        <div class="statement">
-            <span class="statement-label">{t("ui.statement1")}:</span>
-            <span class="statement-text">{quiz.baseSentences[0]}</span>
-        </div>
-        <div class="statement">
-            <span class="statement-label">{t("ui.statement2")}:</span>
-            <span class="statement-text">{quiz.baseSentences[1]}</span>
-        </div>
+  <div class="quiz-statements">
+    <div class="statement">
+      <span class="statement-label">{t("ui.statement1")}:</span>
+      <span class="statement-text">{quiz.baseSentences[0]}</span>
     </div>
-
-    <form class="quiz-form">
-        <div class="options-container">
-            {quiz.answers.map((answer, index) => (
-                <button
-                    type="button"
-                    class="option-button"
-                    data-option={answer.sentence}
-                    data-correct={answer.isCorrect ? "true" : "false"}
-                    data-index={index}
-                >
-                    <span class="option-text">{answer.sentence}</span>
-                    <div class="option-indicator"></div>
-                </button>
-            ))}
-        </div>
-    </form>
-
-    <div class="quiz-actions">
-        <a href={`/${lang}/`} class="action-button secondary">
-            {t("ui.newQuestion")}
-        </a>
+    <div class="statement">
+      <span class="statement-label">{t("ui.statement2")}:</span>
+      <span class="statement-text">{quiz.baseSentences[1]}</span>
     </div>
+  </div>
+
+  <form class="quiz-form">
+    <div class="options-container">
+      {
+        quiz.answers.map((answer, index) => (
+          <button
+            type="button"
+            class="option-button"
+            data-option={answer.sentence}
+            data-correct={answer.isCorrect ? "true" : "false"}
+            data-index={index}
+          >
+            <span class="option-text">{answer.sentence}</span>
+            <div class="option-indicator" />
+          </button>
+        ))
+      }
+    </div>
+  </form>
+
+  <div class="quiz-actions">
+    <a href={`/${lang}/`} class="action-button secondary">
+      {t("ui.newQuestion")}
+    </a>
+  </div>
 </div>
 
 <style>
-    .quiz-container {
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto;
-    }
+  .quiz-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
+  .quiz-statements {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(20px);
+  }
+
+  .statement {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .statement:last-child {
+    margin-bottom: 0;
+  }
+
+  .statement-label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .statement-text {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.5;
+  }
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .option-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+  }
+
+  .option-button:hover:not(.answered) {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .option-button:active:not(.answered) {
+    transform: translateY(0);
+  }
+
+  .option-text {
+    flex: 1;
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  .option-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .option-button.correct {
+    background: linear-gradient(
+      135deg,
+      rgba(46, 204, 113, 0.2) 0%,
+      rgba(39, 174, 96, 0.1) 100%
+    );
+    border-color: rgba(46, 204, 113, 0.5);
+    color: #2ecc71;
+  }
+
+  .option-button.correct .option-indicator {
+    background: #2ecc71;
+    border-color: #2ecc71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+  }
+
+  .option-button.correct .option-indicator::after {
+    content: "✓";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .option-button.wrong {
+    background: linear-gradient(
+      135deg,
+      rgba(231, 76, 60, 0.2) 0%,
+      rgba(192, 57, 43, 0.1) 100%
+    );
+    border-color: rgba(231, 76, 60, 0.5);
+    color: #e74c3c;
+  }
+
+  .option-button.wrong .option-indicator {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
+  }
+
+  .option-button.wrong .option-indicator::after {
+    content: "✕";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .quiz-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .action-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .action-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
     .quiz-statements {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        backdrop-filter: blur(20px);
-    }
-
-    .statement {
-        margin-bottom: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .statement:last-child {
-        margin-bottom: 0;
-    }
-
-    .statement-label {
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .statement-text {
-        font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.95);
-        line-height: 1.5;
-    }
-
-    .options-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 2rem;
+      font-size: 1rem;
     }
 
     .option-button {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.5rem 1.75rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        overflow: hidden;
-    }
-
-    .option-button:hover:not(.answered) {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .option-button:active:not(.answered) {
-        transform: translateY(0);
+      padding: 1.25rem 1.5rem;
     }
 
     .option-text {
-        flex: 1;
-        text-align: left;
-        line-height: 1.4;
+      font-size: 0.95rem;
     }
-
-    .option-indicator {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-        margin-left: 1rem;
-    }
-
-    .option-button.correct {
-        background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(39, 174, 96, 0.1) 100%);
-        border-color: rgba(46, 204, 113, 0.5);
-        color: #2ecc71;
-    }
-
-    .option-button.correct .option-indicator {
-        background: #2ecc71;
-        border-color: #2ecc71;
-        box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
-    }
-
-    .option-button.correct .option-indicator::after {
-        content: '✓';
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    .option-button.wrong {
-        background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(192, 57, 43, 0.1) 100%);
-        border-color: rgba(231, 76, 60, 0.5);
-        color: #e74c3c;
-    }
-
-    .option-button.wrong .option-indicator {
-        background: #e74c3c;
-        border-color: #e74c3c;
-        box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);
-    }
-
-    .option-button.wrong .option-indicator::after {
-        content: '✕';
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    .quiz-actions {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    .action-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.875rem 1.75rem;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-
-    .action-button.secondary {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    .action-button.secondary:hover {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    @media (max-width: 768px) {
-        .quiz-statements {
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .statement-text {
-            font-size: 1rem;
-        }
-
-        .option-button {
-            padding: 1.25rem 1.5rem;
-        }
-
-        .option-text {
-            font-size: 0.95rem;
-        }
-    }
+  }
 </style>
 
 <script type="module" define:vars={{ quiz }}>
-    const buttons = document.querySelectorAll('button.option-button');
-    let answered = false;
+  const buttons = document.querySelectorAll("button.option-button");
+  let answered = false;
 
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (answered) return;
-            answered = true;
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (answered) return;
+      answered = true;
 
-            buttons.forEach((b) => {
-                const correct = b.dataset.correct === "true";
-                b.classList.add(correct ? 'correct' : 'wrong');
-                b.classList.add('answered');
-            });
-        });
+      buttons.forEach((b) => {
+        const correct = b.dataset.correct === "true";
+        b.classList.add(correct ? "correct" : "wrong");
+        b.classList.add("answered");
+      });
     });
+  });
 </script>

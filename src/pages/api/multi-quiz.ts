@@ -1,6 +1,10 @@
 // src/pages/api/multi-quiz.ts
 import type { APIRoute } from "astro";
+
 import quizData from "../../data/quiz-templates.json";
+// Load localized terms and templates
+import de from "../../i18n/de.json";
+import en from "../../i18n/en.json";
 
 export const prerender = false;
 
@@ -23,7 +27,13 @@ export type QuizItem = {
   correct: Conclusion[];
 };
 
-const allTypes: QuantifierType[] = ["all", "none", "some", "some_none", "unknown"];
+const allTypes: QuantifierType[] = [
+  "all",
+  "none",
+  "some",
+  "some_none",
+  "unknown",
+];
 
 function shuffle<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -37,10 +47,6 @@ function shuffle<T>(array: T[]): T[] {
 function getRandomElement<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
-
-// Load localized terms and templates
-import de from "../../i18n/de.json";
-import en from "../../i18n/en.json";
 
 const termsMap = {
   de: de.terms,
@@ -64,7 +70,9 @@ function generateMultiQuiz(lang: "de" | "en") {
 
   const mapVarsToTerms = (v: "X" | "Y" | "Z") => termMap[v];
 
-  function correctConclusionsFromOneStatement(statement: Statement | Conclusion): Conclusion[] {
+  function correctConclusionsFromOneStatement(
+    statement: Statement | Conclusion
+  ): Conclusion[] {
     const derived: Conclusion[] = [];
 
     const { type, subject, object } = statement;
@@ -119,12 +127,16 @@ function generateMultiQuiz(lang: "de" | "en") {
   } while (!isValid(item));
 
   const baseSentences = item.statements.map((s) =>
-    t[s.type].replace("{sub}", mapVarsToTerms(s.subject)).replace("{obj}", mapVarsToTerms(s.object))
+    t[s.type]
+      .replace("{sub}", mapVarsToTerms(s.subject))
+      .replace("{obj}", mapVarsToTerms(s.object))
   );
 
   const correctAnswers = expandCorrectAnswers(item);
 
-  const baseKeys = new Set(item.statements.map((s) => `${s.type}:${s.subject}->${s.object}`));
+  const baseKeys = new Set(
+    item.statements.map((s) => `${s.type}:${s.subject}->${s.object}`)
+  );
 
   const possibleAnswers = allTypes.flatMap((type) => {
     if (type === "unknown") return [];
@@ -143,18 +155,24 @@ function generateMultiQuiz(lang: "de" | "en") {
     }
 
     return candidates.map((c) => {
-      const sentence = t[type].replace("{sub}", mapVarsToTerms(c.subject)).replace("{obj}", mapVarsToTerms(c.object));
+      const sentence = t[type]
+        .replace("{sub}", mapVarsToTerms(c.subject))
+        .replace("{obj}", mapVarsToTerms(c.object));
       const isCorrect = correctAnswers.some(
         (correct) =>
           correct.type === c.type &&
           ((correct.subject === c.subject && correct.object === c.object) ||
-            (correct.subject === c.object && correct.object === c.subject && correct.type === "some"))
+            (correct.subject === c.object &&
+              correct.object === c.subject &&
+              correct.type === "some"))
       );
       return { sentence, isCorrect };
     });
   });
 
-  const answers = shuffle(possibleAnswers).filter((a, i, arr) => arr.findIndex((b) => b.sentence === a.sentence) === i);
+  const answers = shuffle(possibleAnswers).filter(
+    (a, i, arr) => arr.findIndex((b) => b.sentence === a.sentence) === i
+  );
   const finalAnswers = answers.slice(0, 6); // or however many you want to display
 
   // Ensure at least one correct in final set
@@ -178,12 +196,15 @@ export const GET: APIRoute = async ({ url, request }) => {
 
     // Validate language
     if (!["de", "en"].includes(lang)) {
-      return new Response(JSON.stringify({ error: "Invalid language. Supported: de, en" }), {
-        status: 400,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response(
+        JSON.stringify({ error: "Invalid language. Supported: de, en" }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
     const quiz = generateMultiQuiz(lang);
@@ -199,11 +220,14 @@ export const GET: APIRoute = async ({ url, request }) => {
     });
   } catch (error) {
     console.error("Error generating multi-choice quiz:", error);
-    return new Response(JSON.stringify({ error: "Failed to generate multi-choice quiz" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return new Response(
+      JSON.stringify({ error: "Failed to generate multi-choice quiz" }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   }
 };
