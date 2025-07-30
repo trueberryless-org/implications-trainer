@@ -64,27 +64,41 @@ function generateMultiQuiz(lang: "de" | "en") {
 
   const mapVarsToTerms = (v: "X" | "Y" | "Z") => termMap[v];
 
+  function correctConclusionsFromOneStatement(statement: Statement | Conclusion): Conclusion[] {
+    const derived: Conclusion[] = [];
+
+    const { type, subject, object } = statement;
+
+    if (type === "all") {
+      derived.push({ type: "some", subject, object });
+      derived.push({ type: "some", subject: object, object: subject });
+    }
+
+    if (type === "some") {
+      derived.push({ type: "some", subject: object, object: subject });
+    }
+
+    if (type === "none") {
+      derived.push({ type: "none", subject: object, object: subject });
+      derived.push({ type: "some_none", subject, object });
+      derived.push({ type: "some_none", subject: object, object: subject });
+    }
+
+    return derived;
+  }
+
   function expandCorrectAnswers(item: QuizItem): Conclusion[] {
     const derived: Conclusion[] = [...item.correct];
 
     for (const stmt of item.statements) {
-      const { type, subject, object } = stmt;
-
-      if (type === "all") {
-        derived.push({ type: "some", subject, object });
-        derived.push({ type: "some", subject: object, object: subject });
-      }
-
-      if (type === "some") {
-        derived.push({ type: "some", subject: object, object: subject });
-      }
-
-      if (type === "none") {
-        derived.push({ type: "none", subject: object, object: subject });
-      }
+      derived.push(...correctConclusionsFromOneStatement(stmt));
     }
 
-    // filter duplicates
+    for (const correct of item.correct) {
+      derived.push(...correctConclusionsFromOneStatement(correct));
+    }
+
+    // Filter duplicates
     const unique = new Map<string, Conclusion>();
     for (const c of derived) {
       const key = `${c.type}:${c.subject}->${c.object}`;
