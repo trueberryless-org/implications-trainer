@@ -105,7 +105,7 @@ function generateMultiQuiz(lang: "de" | "en") {
   } while (!isValid(item));
 
   const baseSentences = item.statements.map((s) =>
-    t[s.type].replace("{sub}", mapVarsToTerms(s.subject)).replace("{obj)", mapVarsToTerms(s.object))
+    t[s.type].replace("{sub}", mapVarsToTerms(s.subject)).replace("{obj}", mapVarsToTerms(s.object))
   );
 
   const correctAnswers = expandCorrectAnswers(item);
