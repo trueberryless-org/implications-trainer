@@ -1,6 +1,8 @@
-// QuizGenerator.ts
-import quizData from "../data/quiz-templates.json";
-import type { APIContext } from "astro";
+// src/pages/api/quiz.ts
+import type { APIRoute } from "astro";
+import quizData from "../../data/quiz-templates.json";
+
+export const prerender = false;
 
 export type QuantifierType = "all" | "none" | "some" | "some_none" | "unknown";
 
@@ -24,11 +26,12 @@ export type QuizItem = {
 const allTypes: QuantifierType[] = ["all", "none", "some", "some_none", "unknown"];
 
 function shuffle<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return array;
+  return shuffled;
 }
 
 function getRandomElement<T>(arr: T[]): T {
@@ -36,9 +39,8 @@ function getRandomElement<T>(arr: T[]): T {
 }
 
 // Load localized terms and templates
-import de from "../i18n/de.json";
-import en from "../i18n/en.json";
-import type { ui } from "../i18n/ui";
+import de from "../../i18n/de.json";
+import en from "../../i18n/en.json";
 
 const termsMap = {
   de: de.terms,
@@ -50,10 +52,10 @@ const templates = {
   en: en.templates,
 };
 
-export function generateQuiz(lang: keyof typeof ui) {
+function generateQuiz(lang: "de" | "en") {
   const item: QuizItem = getRandomElement(quizData.data);
-  const t = templates[lang as keyof typeof templates];
-  const terms = [...termsMap[lang as keyof typeof termsMap]];
+  const t = templates[lang];
+  const terms = [...termsMap[lang]];
   shuffle(terms);
 
   const termMap: Record<"X" | "Y" | "Z", string> = {
@@ -82,7 +84,6 @@ export function generateQuiz(lang: keyof typeof ui) {
   const unknownAnswer = answers.find((a) => a.type === "unknown");
   // alle anderen mischen
   const otherAnswers = shuffle(answers.filter((a) => a.type !== "unknown"));
-
   // unknown am Ende anhängen (wenn vorhanden)
   const finalAnswers = unknownAnswer ? [...otherAnswers, unknownAnswer] : otherAnswers;
 
@@ -91,3 +92,40 @@ export function generateQuiz(lang: keyof typeof ui) {
     answers: finalAnswers.map(({ sentence, isCorrect }) => ({ sentence, isCorrect })),
   };
 }
+
+export const GET: APIRoute = async ({ url, request }) => {
+  try {
+    // Get language from query parameter, default to 'en'
+    const lang = (url.searchParams.get("lang") as "de" | "en") || "en";
+
+    // Validate language
+    if (!["de", "en"].includes(lang)) {
+      return new Response(JSON.stringify({ error: "Invalid language. Supported: de, en" }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    const quiz = generateQuiz(lang);
+
+    return new Response(JSON.stringify(quiz), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    });
+  } catch (error) {
+    console.error("Error generating quiz:", error);
+    return new Response(JSON.stringify({ error: "Failed to generate quiz" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+};

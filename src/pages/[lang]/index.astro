@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 <Base>
   <h1>🧠 {t("title")}</h1>
-  <QuizView server:defer>
+  <QuizView>
     <QuizViewFallback slot='fallback'/>
   </QuizView>
 </Base>
