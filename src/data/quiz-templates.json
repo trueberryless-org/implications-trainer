@@ -90,10 +90,7 @@
         { "type": "some", "subject": "X", "object": "Y" },
         { "type": "none", "subject": "Y", "object": "Z" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "X", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "X" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "X", "object": "Z" }]
     },
     {
       "statements": [
