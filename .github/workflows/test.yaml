@@ -1,0 +1,22 @@
+name: Run Jest Tests
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install --save-dev jest ts-jest @types/jest typescript
+      - name: Configure Jest for TypeScript
+        run: |
+          npx ts-jest config:init
+      - name: Run Jest tests
+        run: npx jest src/data/quiz-templates.test.ts
