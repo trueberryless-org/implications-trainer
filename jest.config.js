@@ -2,10 +2,7 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   roots: ["<rootDir>/src"],
-  testMatch: [
-    "**/__tests__/**/*.+(ts|tsx|js)",
-    "**/*.(test|spec).+(ts|tsx|js)",
-  ],
+  testMatch: ["**/?(*.)+(spec|test).[tj]s?(x)"],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
@@ -21,10 +18,9 @@ module.exports = {
     [
       "jest-junit",
       {
-        outputDirectory: "./test-results",
-        outputName: "junit.xml",
+        outputName: "jest-junit.xml",
         ancestorSeparator: " › ",
-        uniqueOutputName: "false",
+        uniqueOutputName: false,
         suiteNameTemplate: "{filepath}",
         classNameTemplate: "{classname}",
         titleTemplate: "{title}",
