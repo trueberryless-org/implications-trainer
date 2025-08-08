@@ -136,3 +136,6 @@ dist
 
 # Local Netlify folder
 .netlify
+
+# Tests
+/test-results

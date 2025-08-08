@@ -27,6 +27,14 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Annotate test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Jest Tests
+          path: test-results/junit.xml
+          reporter: junit
+
       - name: Run coverage
         run: pnpm test:coverage
 
