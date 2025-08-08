@@ -33,7 +33,7 @@ jobs:
         with:
           name: Jest Tests
           path: test-results/junit.xml
-          reporter: junit
+          reporter: jest-junit
 
       - name: Run coverage
         run: pnpm test:coverage
