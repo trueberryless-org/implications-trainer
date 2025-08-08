@@ -20,7 +20,15 @@ module.exports = {
     "default",
     [
       "jest-junit",
-      { outputDirectory: "./test-results", outputName: "junit.xml" },
+      {
+        outputDirectory: "./test-results",
+        outputName: "junit.xml",
+        ancestorSeparator: " › ",
+        uniqueOutputName: "false",
+        suiteNameTemplate: "{filepath}",
+        classNameTemplate: "{classname}",
+        titleTemplate: "{title}",
+      },
     ],
   ],
 };
