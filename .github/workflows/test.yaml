@@ -27,6 +27,9 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Run coverage
+        run: pnpm test:coverage
+
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
