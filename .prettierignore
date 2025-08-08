@@ -24,7 +24,6 @@ __generated__/
 # Test and coverage files
 coverage/
 *.spec.*
-*.test.*
 
 # Editor-specific files
 .vscode/
