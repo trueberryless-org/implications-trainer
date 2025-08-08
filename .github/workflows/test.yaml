@@ -1,22 +1,38 @@
 name: Run Jest Tests
+
 on:
   push:
+  pull_request:
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
+          
       - name: Install dependencies
-        run: |
-          npm init -y
-          npm install --save-dev jest ts-jest @types/jest typescript
-      - name: Configure Jest for TypeScript
-        run: |
-          npx ts-jest config:init
-      - name: Run Jest tests
-        run: npx jest src/data/quiz-templates.test.ts
+        run: pnpm install
+        
+      - name: Run tests
+        run: pnpm test
+        
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: coverage/
+          retention-days: 30

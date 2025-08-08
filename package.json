@@ -15,7 +15,10 @@
     "astro": "astro",
     "build": "astro build",
     "dev": "astro dev",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.5.3",
@@ -24,8 +27,13 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
+    "@types/jest": "^30.0.0",
+    "ajv": "^8.17.1",
+    "jest": "^30.0.5",
     "prettier": "3.5.3",
-    "prettier-plugin-astro": "0.14.1"
+    "prettier-plugin-astro": "0.14.1",
+    "ts-jest": "^29.4.1",
+    "typescript": "^5.9.2"
   },
   "packageManager": "pnpm@10.10.0"
 }
