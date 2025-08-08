@@ -4,6 +4,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6e78207c-0fd9-43ad-ba8b-fc1eaba90421/deploy-status)](https://app.netlify.com/projects/implications-trainer/deploys)
 [![Hard-coded logic data](https://img.shields.io/badge/🪵-Hard--coded_logic_data-purple)](src/data/quiz-templates.json)
+[![Test Report](https://github.com/trueberryless-org/implications-trainer/actions/workflows/test-report.yaml/badge.svg)](https://github.com/trueberryless-org/implications-trainer/actions/workflows/test-report.yaml)
 
 ## ✨ Features
 
