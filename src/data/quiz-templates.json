@@ -63,10 +63,7 @@
         { "type": "none", "subject": "X", "object": "Y" },
         { "type": "some", "subject": "Y", "object": "Z" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "X", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "X" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "Z", "object": "X" }]
     },
     {
       "statements": [
@@ -215,10 +212,7 @@
         { "type": "none", "subject": "X", "object": "Y" },
         { "type": "some", "subject": "X", "object": "Z" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "Y", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "Y" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "Z", "object": "Y" }]
     },
     {
       "statements": [
@@ -245,10 +239,7 @@
         { "type": "some", "subject": "X", "object": "Y" },
         { "type": "none", "subject": "X", "object": "Z" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "Y", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "Y" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "Y", "object": "Z" }]
     },
     {
       "statements": [
@@ -370,10 +361,7 @@
         { "type": "none", "subject": "Y", "object": "X" },
         { "type": "some", "subject": "Z", "object": "X" }
       ],
-      "correct": [
-        { "type": "unknown", "subject": "Y", "object": "Z" },
-        { "type": "unknown", "subject": "Z", "object": "Y" }
-      ]
+      "correct": [{ "type": "some_none", "subject": "Z", "object": "Y" }]
     },
     {
       "statements": [
