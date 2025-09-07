@@ -12,8 +12,8 @@ importers:
         specifier: ^6.5.3
         version: 6.5.3(@types/node@24.1.0)(astro@5.12.5(@netlify/blobs@10.0.8)(@types/node@24.1.0)(jiti@2.5.1)(rollup@4.46.0)(typescript@5.9.2)(yaml@2.8.0))(jiti@2.5.1)(rollup@4.46.0)(yaml@2.8.0)
       '@fontsource-variable/atkinson-hyperlegible-next':
-        specifier: ^5.2.4
-        version: 5.2.4
+        specifier: ^5.2.5
+        version: 5.2.5
       astro:
         specifier: ^5.12.3
         version: 5.12.5(@netlify/blobs@10.0.8)(@types/node@24.1.0)(jiti@2.5.1)(rollup@4.46.0)(typescript@5.9.2)(yaml@2.8.0)
@@ -591,8 +591,8 @@ packages:
   '@fastify/busboy@3.1.1':
     resolution: {integrity: sha512-5DGmA8FTdB2XbDeEwc/5ZXBl6UbBAyBOOLlPuBnZ/N1SwdH9Ii+cOX3tBROlDgcTXxjOYnLMVoKk9+FXAw0CJw==}
 
-  '@fontsource-variable/atkinson-hyperlegible-next@5.2.4':
-    resolution: {integrity: sha512-tBwEMYA1+QopQI6f/cU3V502aNx0/ewRlpCKndPn4rOOZK/gOOyxRGanxxRlJyOBkwZ9Qx9z4bM39uV1PXbmVg==}
+  '@fontsource-variable/atkinson-hyperlegible-next@5.2.5':
+    resolution: {integrity: sha512-RmVQzcI2ZIHiDRi4djHOcHN1CpHmEc5soCHXad4EMalakFEK4K6DoNJu0KCP5rZCzlHsQOQUjizjbmx9DiB+hQ==}
 
   '@humanwhocodes/momoa@2.0.4':
     resolution: {integrity: sha512-RE815I4arJFtt+FVeU1Tgp9/Xvecacji8w/V6XtXsWWH/wz/eNkNbhb+ny/+PlVZjV0rxQpRSQKNKE3lcktHEA==}
@@ -4904,7 +4904,7 @@ snapshots:
 
   '@fastify/busboy@3.1.1': {}
 
-  '@fontsource-variable/atkinson-hyperlegible-next@5.2.4': {}
+  '@fontsource-variable/atkinson-hyperlegible-next@5.2.5': {}
 
   '@humanwhocodes/momoa@2.0.4': {}
 
