@@ -20,20 +20,20 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.5.3",
-    "@fontsource-variable/atkinson-hyperlegible-next": "^5.2.4",
-    "astro": "^5.12.3"
+    "@astrojs/netlify": "^6.6.3",
+    "@fontsource-variable/atkinson-hyperlegible-next": "^5.2.6",
+    "astro": "^5.16.5"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "6.0.0",
     "@types/jest": "^30.0.0",
     "ajv": "^8.17.1",
-    "jest": "^30.0.5",
+    "jest": "^30.2.0",
     "jest-junit": "^16.0.0",
-    "prettier": "3.6.2",
+    "prettier": "3.7.4",
     "prettier-plugin-astro": "0.14.1",
-    "ts-jest": "^29.4.1",
-    "typescript": "^5.9.2"
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.10.0"
 }
