@@ -20,9 +20,9 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@astrojs/netlify": "^7.0.3",
+    "@astrojs/netlify": "^7.0.6",
     "@fontsource-variable/atkinson-hyperlegible-next": "^5.2.6",
-    "astro": "^6.0.5"
+    "astro": "^6.1.3"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
@@ -32,7 +32,7 @@
     "jest-junit": "^16.0.0",
     "prettier": "3.8.1",
     "prettier-plugin-astro": "0.14.1",
-    "ts-jest": "^29.4.6",
+    "ts-jest": "^29.4.9",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.10.0"
