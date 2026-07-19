@@ -1,7 +1,7 @@
 {
   "name": "implications-trainer",
   "version": "0.0.1",
-  "homepage": "https://implications-trainer.trueberryless.org",
+  "homepage": "https://implications-trainer.netlify.app/",
   "bugs": {
     "url": "https://github.com/trueberryless-org/implications-trainer/issues"
   },
@@ -10,7 +10,7 @@
     "url": "https://github.com/trueberryless-org/implications-trainer.git"
   },
   "license": "MIT",
-  "author": "trueberryless <trueberryless@gmail.com> (https://trueberryless.org)",
+  "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "scripts": {
     "astro": "astro",
     "build": "astro build",
