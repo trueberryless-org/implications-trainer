@@ -12,8 +12,8 @@ importers:
         specifier: ^7.0.13
         version: 7.0.13(@types/node@25.5.0)(astro@6.4.8(@netlify/blobs@10.7.9)(@types/node@25.5.0)(jiti@2.6.1)(rollup@4.59.0)(yaml@2.8.2))(jiti@2.6.1)(rollup@4.59.0)(yaml@2.8.2)
       '@fontsource-variable/atkinson-hyperlegible-next':
-        specifier: ^5.2.6
-        version: 5.2.6
+        specifier: ^5.3.0
+        version: 5.3.0
       astro:
         specifier: ^6.4.8
         version: 6.4.8(@netlify/blobs@10.7.9)(@types/node@25.5.0)(jiti@2.6.1)(rollup@4.59.0)(yaml@2.8.2)
@@ -596,8 +596,8 @@ packages:
   '@fastify/busboy@3.2.0':
     resolution: {integrity: sha512-m9FVDXU3GT2ITSe0UaMA5rU3QkfC/UXtCU8y0gSN/GugTqtVldOBWIB5V6V3sbmenVZUIpU6f+mPEO2+m5iTaA==}
 
-  '@fontsource-variable/atkinson-hyperlegible-next@5.2.6':
-    resolution: {integrity: sha512-D0Z8peFkRGYACvmWp8Sl8YPGYLBEJbzqapugtsMEYSUUtpQDiZVDHjk9s7bqB4hSCRYCrKuW6V1V+mnHybVnPw==}
+  '@fontsource-variable/atkinson-hyperlegible-next@5.3.0':
+    resolution: {integrity: sha512-UnLzNUy1RWoLDfydAatP4NaRm99X/WbQEph7q/PymJnCFIOOwKOx3pBmp5ys8trO0dM+CKGuJgeZP9fAR4mQpA==}
 
   '@humanwhocodes/momoa@2.0.4':
     resolution: {integrity: sha512-RE815I4arJFtt+FVeU1Tgp9/Xvecacji8w/V6XtXsWWH/wz/eNkNbhb+ny/+PlVZjV0rxQpRSQKNKE3lcktHEA==}
@@ -2115,6 +2115,7 @@ packages:
   cron-parser@4.9.0:
     resolution: {integrity: sha512-p0SaNjrHOnQeR8/VnfGbmg9te2kfyYSQ7Sc/j/6DtPL3JQvKxmjO9TSjNFpujqV3vEYYBvNNvXSxzyksBWAx1Q==}
     engines: {node: '>=12.0.0'}
+    deprecated: v4 is no longer maintained, upgrade to v5
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -5435,7 +5436,7 @@ snapshots:
 
   '@fastify/busboy@3.2.0': {}
 
-  '@fontsource-variable/atkinson-hyperlegible-next@5.2.6': {}
+  '@fontsource-variable/atkinson-hyperlegible-next@5.3.0': {}
 
   '@humanwhocodes/momoa@2.0.4': {}
 
