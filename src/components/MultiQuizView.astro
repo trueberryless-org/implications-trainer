@@ -27,25 +27,23 @@ const quiz = await quizResponse.json();
 
   <form id="quiz-form" class="quiz-form">
     <div class="options-container">
-      {
-        quiz.answers.map((answer, index) => (
-          <label
-            class="option-checkbox"
-            data-index={index}
-            data-correct={answer.isCorrect ? "true" : "false"}
-          >
-            <input
-              type="checkbox"
-              class="checkbox-input"
-              name="option"
-              value={index}
-            />
-            <div class="checkbox-custom" />
-            <span class="option-text">{answer.sentence}</span>
-            <div class="option-indicator" />
-          </label>
-        ))
-      }
+      {quiz.answers.map((answer, index) => (
+        <label
+          class="option-checkbox"
+          data-index={index}
+          data-correct={answer.isCorrect ? "true" : "false"}
+        >
+          <input
+            type="checkbox"
+            class="checkbox-input"
+            name="option"
+            value={index}
+          />
+          <div class="checkbox-custom" />
+          <span class="option-text">{answer.sentence}</span>
+          <div class="option-indicator" />
+        </label>
+      ))}
     </div>
 
     <div class="submit-container">

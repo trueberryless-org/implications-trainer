@@ -27,20 +27,18 @@ const quiz = await quizResponse.json();
 
   <form class="quiz-form">
     <div class="options-container">
-      {
-        quiz.answers.map((answer, index) => (
-          <button
-            type="button"
-            class="option-button"
-            data-option={answer.sentence}
-            data-correct={answer.isCorrect ? "true" : "false"}
-            data-index={index}
-          >
-            <span class="option-text">{answer.sentence}</span>
-            <div class="option-indicator" />
-          </button>
-        ))
-      }
+      {quiz.answers.map((answer, index) => (
+        <button
+          type="button"
+          class="option-button"
+          data-option={answer.sentence}
+          data-correct={answer.isCorrect ? "true" : "false"}
+          data-index={index}
+        >
+          <span class="option-text">{answer.sentence}</span>
+          <div class="option-indicator" />
+        </button>
+      ))}
     </div>
   </form>
 
