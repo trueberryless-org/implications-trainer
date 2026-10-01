@@ -10,22 +10,22 @@ test.describe('single choice', () => {
   test('shows two statements and five answers', async ({ page }) => {
     await expect(page.getByRole('heading', { level: 1, name: 'Implications Trainer' })).toBeVisible()
     await expect(page.locator('.statement')).toHaveCount(2)
-    await expect(page.locator('button.option')).toHaveCount(5)
+    await expect(page.locator('button.option-button')).toHaveCount(5)
   })
 
   test('marks the correct answer with text, not only color', async ({ page }) => {
-    await page.locator('button.option').first().click()
+    await page.locator('button.option-button').first().click()
 
     await expect(page.locator('[data-status="correct"]')).toHaveCount(1)
     await expect(page.locator('[data-status="correct"] .option-status')).toHaveText('Correct')
-    await expect(page.locator('button.option[aria-disabled="true"]')).toHaveCount(5)
+    await expect(page.locator('button.option-button[aria-disabled="true"]')).toHaveCount(5)
   })
 
   test('shows a new question', async ({ page }) => {
     const before = await page.locator('.statement-text').allTextContents()
 
     for (let attempt = 0; attempt < 5; attempt++) {
-      await page.getByRole('link', { name: 'New question' }).click()
+      await page.getByRole('link', { name: /New Question/ }).click()
       await expect(page.locator('[data-quiz="single"]')).toBeVisible()
 
       if ((await page.locator('.statement-text').allTextContents()).join() !== before.join()) {
@@ -42,11 +42,11 @@ test.describe('multiple choice', () => {
     await page.goto('/en/multi-choice')
     await expect(page.locator('[data-quiz="multi"]')).toBeVisible()
 
-    await page.getByRole('checkbox').first().check()
-    await page.getByRole('button', { name: 'Check answers' }).click()
+    await page.locator('label.option-checkbox').first().click()
+    await page.getByRole('button', { name: /Check Answers/ }).click()
 
     await expect(page.locator('[data-status="correct"]').first()).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Check answers' })).toBeDisabled()
+    await expect(page.getByRole('button', { name: /Check Answers/ })).toBeDisabled()
   })
 })
 
@@ -58,9 +58,11 @@ test('redirects the root to English', async ({ page }) => {
 
 test('switches to German and keeps the quiz mode', async ({ page }) => {
   await page.goto('/en/multi-choice')
+  await page.locator('#lang-dropdown-btn').click()
+  await expect(page.locator('#lang-dropdown-btn')).toHaveAttribute('aria-expanded', 'true')
   await page.getByRole('link', { name: 'Deutsch' }).click()
 
-  await expect(page).toHaveURL(/\/de\/multi-choice$/)
+  await expect(page).toHaveURL(/\/de\/multi-choice\/?$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Implikations-Trainer' })).toBeVisible()
   await expect(page.locator('html')).toHaveAttribute('lang', 'de')
 })
@@ -79,7 +81,7 @@ test.describe('accessibility', () => {
         await page.emulateMedia({ colorScheme })
         await page.goto(path)
         await expect(page.locator('[data-quiz]')).toBeVisible()
-        await page.locator('.option').first().click()
+        await page.locator('.option-button, .option-checkbox').first().click()
 
         const { violations } = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
 

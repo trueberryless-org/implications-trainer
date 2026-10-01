@@ -10,7 +10,7 @@
   "ui": {
     "statement1": "Aussage 1",
     "statement2": "Aussage 2",
-    "newQuestion": "Neue Aufgabe",
+    "newQuestion": "🔄 Neue Aufgabe",
     "checkAnswers": "Antworten kontrollieren",
     "singleChoice": "Einfachauswahl (MedAT)",
     "multipleChoice": "Mehrfachauswahl (TU Wien)",

@@ -7,7 +7,7 @@ import { getTranslations } from '../../src/libs/translations'
 describe('getTranslations', () => {
   test('returns the title and the ui strings of a language', () => {
     expect(getTranslations('de').title).toBe('Implikations-Trainer')
-    expect(getTranslations('en').ui('newQuestion')).toBe('New question')
+    expect(getTranslations('en').ui('newQuestion')).toBe('🔄 New Question')
   })
 
   test('translates every ui key in every language', () => {

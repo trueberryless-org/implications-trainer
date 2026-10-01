@@ -1,6 +1,6 @@
 ---
 import QuizView from "../../components/QuizView.astro";
-import QuizFallback from "../../components/QuizFallback.astro";
+import QuizViewFallback from "../../components/QuizViewFallback.astro";
 import Base from "../../layouts/Base.astro";
 import { getLanguageFromPathname, LANGUAGES } from "../../libs/language";
 import { getTranslations } from "../../libs/translations";
@@ -14,8 +14,8 @@ const { title } = getTranslations(language);
 ---
 
 <Base>
-  <h1>{title}</h1>
+  <h1>🧠 {title}</h1>
   <QuizView language={language} server:defer>
-    <QuizFallback slot="fallback" options={5} />
+    <QuizViewFallback slot="fallback" />
   </QuizView>
 </Base>

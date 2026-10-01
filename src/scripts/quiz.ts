@@ -10,10 +10,13 @@ function revealOption(
     isSelected,
   });
 
+  option.classList.add("answered");
+
   if (status === "neutral") {
     return;
   }
 
+  option.classList.add(status === "correct" ? "correct" : "wrong");
   option.dataset["status"] = status;
   option.querySelector(".option-status")!.textContent =
     status === "correct"
@@ -23,7 +26,7 @@ function revealOption(
 
 function setUpSingleChoice(container: HTMLElement) {
   const options = [
-    ...container.querySelectorAll<HTMLButtonElement>("button.option"),
+    ...container.querySelectorAll<HTMLButtonElement>("button.option-button"),
   ];
   let isAnswered = false;
 
@@ -56,7 +59,9 @@ function setUpMultiChoice(container: HTMLElement) {
 
     isAnswered = true;
 
-    for (const option of form.querySelectorAll<HTMLElement>("label.option")) {
+    for (const option of form.querySelectorAll<HTMLElement>(
+      "label.option-checkbox"
+    )) {
       const checkbox = option.querySelector("input")!;
 
       checkbox.disabled = true;
