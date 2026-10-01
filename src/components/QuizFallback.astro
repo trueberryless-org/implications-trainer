@@ -1,0 +1,29 @@
+---
+interface Props {
+  options: number;
+}
+
+const { options } = Astro.props;
+---
+
+<div aria-busy="true" role="status">
+  <span class="visually-hidden">Loading</span>
+  <div class="statements" aria-hidden="true">
+    <div class="statement">
+      <span class="placeholder placeholder-short"></span>
+      <span class="placeholder"></span>
+    </div>
+    <div class="statement">
+      <span class="placeholder placeholder-short"></span>
+      <span class="placeholder"></span>
+    </div>
+  </div>
+  <div class="options" aria-hidden="true">
+    {Array.from({ length: options }, () => (
+      <span class="placeholder placeholder-option"></span>
+    ))}
+  </div>
+  <div class="actions" aria-hidden="true">
+    <span class="placeholder placeholder-button"></span>
+  </div>
+</div>

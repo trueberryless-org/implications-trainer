@@ -1,27 +1,21 @@
 ---
-import "@fontsource-variable/atkinson-hyperlegible-next";
-import "../../styles/global.css";
-import Base from "../../layouts/Base.astro";
 import MultiQuizView from "../../components/MultiQuizView.astro";
-import { languages } from "../../i18n/ui";
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
-import MultiQuizViewFallback from "../../components/MultiQuizViewFallback.astro";
+import QuizFallback from "../../components/QuizFallback.astro";
+import Base from "../../layouts/Base.astro";
+import { getLanguageFromPathname, LANGUAGES } from "../../libs/language";
+import { getTranslations } from "../../libs/translations";
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-
-export async function getStaticPaths() {
-  const paths = Object.entries(languages).map(([lang, label]) => {
-    return { params: { lang } };
-  });
-
-  return paths;
+export function getStaticPaths() {
+  return Object.keys(LANGUAGES).map((lang) => ({ params: { lang } }));
 }
+
+const language = getLanguageFromPathname(Astro.url.pathname);
+const { title } = getTranslations(language);
 ---
 
 <Base>
-  <h1>🧠 {t("title")}</h1>
-  <MultiQuizView server:defer>
-    <MultiQuizViewFallback slot="fallback" />
+  <h1>{title}</h1>
+  <MultiQuizView language={language} server:defer>
+    <QuizFallback slot="fallback" options={6} />
   </MultiQuizView>
 </Base>

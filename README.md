@@ -4,7 +4,6 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6e78207c-0fd9-43ad-ba8b-fc1eaba90421/deploy-status)](https://app.netlify.com/projects/implications-trainer/deploys)
 [![Hard-coded logic data](https://img.shields.io/badge/🪵-Hard--coded_logic_data-purple)](src/data/quiz-templates.json)
-[![Test Report](https://github.com/trueberryless-org/implications-trainer/actions/workflows/test-report.yaml/badge.svg)](https://github.com/trueberryless-org/implications-trainer/actions/workflows/test-report.yaml)
 
 ## ✨ Features
 
@@ -30,6 +29,30 @@ You can choose between any supported languages and the two different modes ([Med
 
 <div align="center">
 
-**Made with ❤️ by [trueberryless](https://trueberryless.org)**
+**Made with ❤️ by [trueberryless](https://felixs.dev)**
 
 </div>
+
+## Development
+
+Requires Node.js 24 and pnpm.
+
+```shell
+pnpm install
+pnpm dev
+```
+
+| Command             | Description                                     |
+| ------------------- | ----------------------------------------------- |
+| `pnpm check`        | Type check with `astro check`                   |
+| `pnpm lint`         | Lint with oxlint                                |
+| `pnpm format:check` | Check formatting with Prettier                  |
+| `pnpm knip`         | Find unused files and dependencies              |
+| `pnpm test`         | Unit tests with Vitest                          |
+| `pnpm test:e2e`     | Build, then run the Playwright end-to-end tests |
+
+## License
+
+Licensed under the MIT license, Copyright © trueberryless.
+
+See [LICENSE](https://github.com/trueberryless-org/implications-trainer/blob/main/LICENSE) for more information.
