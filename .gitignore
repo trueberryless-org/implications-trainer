@@ -83,7 +83,7 @@ web_modules/
 .cache
 .parcel-cache
 
-# Astro 
+# Astro
 .astro
 
 # Next.js build output
@@ -134,8 +134,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Local Netlify folder
+# Netlify
 .netlify
-
-# Tests
-/jest-junit.xml
