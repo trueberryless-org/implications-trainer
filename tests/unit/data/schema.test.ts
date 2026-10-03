@@ -1,7 +1,8 @@
+import { describe, expect, it } from "vitest";
 import Ajv from "ajv";
 
-import quizTemplatesData from "./quiz-templates.json";
-import schema from "./schema.json";
+import quizTemplatesData from "../../../src/data/quiz-templates.json";
+import schema from "../../../src/data/schema.json";
 
 const ajv = new Ajv();
 const validate = ajv.compile(schema);

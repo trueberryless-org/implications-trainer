@@ -139,3 +139,7 @@ dist
 
 # Tests
 /jest-junit.xml
+
+# Playwright
+playwright-report/
+test-results/

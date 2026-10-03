@@ -13,7 +13,11 @@
     "newQuestion": "🔄 Neue Aufgabe",
     "checkAnswers": "Antworten kontrollieren",
     "singleChoice": "Einfachauswahl (MedAT)",
-    "multipleChoice": "Mehrfachauswahl (TU Wien)"
+    "multipleChoice": "Mehrfachauswahl (TU Wien)",
+    "correct": "Richtig",
+    "incorrect": "Falsch",
+    "language": "Sprache",
+    "mode": "Quizmodus"
   },
   "terms": [
     "Säugetiere",

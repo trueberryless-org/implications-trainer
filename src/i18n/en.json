@@ -13,7 +13,11 @@
     "newQuestion": "🔄 New Question",
     "checkAnswers": "Check Answers",
     "singleChoice": "Single Choice (MedAT)",
-    "multipleChoice": "Multiple Choice (TU Vienna)"
+    "multipleChoice": "Multiple Choice (TU Vienna)",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "language": "Language",
+    "mode": "Quiz mode"
   },
   "terms": [
     "mammals",

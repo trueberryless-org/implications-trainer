@@ -1,19 +1,47 @@
 ---
+import "@fontsource-variable/atkinson-hyperlegible-next";
+import "../styles/global.css";
+
 import Footer from "../components/Footer.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { getLanguageFromPathname } from "../libs/language";
+import { getTranslations } from "../libs/translations";
+
+const language = getLanguageFromPathname(Astro.url.pathname);
+const { title } = getTranslations(language);
+const imageUrl = new URL("/og-image.png", Astro.site ?? Astro.url);
+const description =
+  "Train your logical understanding of implications with randomized single and multiple choice questions.";
 ---
 
-<html lang={lang}>
+<!doctype html>
+<html lang={language}>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="canonical"
+      href={new URL(Astro.url.pathname, Astro.site ?? Astro.url)}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{t("title")}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Implications Trainer: Practise deriving statements from statements."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
-    <main class="main-content">
+    <a class="skip-link" href="#content">
+      Skip to content
+    </a>
+    <main class="main-content" id="content">
       <slot />
     </main>
     <Footer />
@@ -21,6 +49,30 @@ const t = useTranslations(lang);
 </html>
 
 <style is:global>
+  .visually-hidden {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .skip-link {
+    background: #000;
+    color: #fff;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    position: absolute;
+    transform: translateY(-200%);
+    z-index: 2000;
+  }
+
+  .skip-link:focus {
+    transform: none;
+  }
+
   * {
     margin: 0;
     padding: 0;

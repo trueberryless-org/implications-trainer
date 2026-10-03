@@ -1,4 +1,5 @@
-import quizTemplatesData from "./quiz-templates.json";
+import { describe, expect, it } from "vitest";
+import quizTemplatesData from "../../../src/data/quiz-templates.json";
 
 // Type definitions based on the schema
 type QuantifierType = "all" | "none" | "some" | "some_none" | "unknown";
@@ -35,17 +36,17 @@ describe("Quiz Templates Data Validation", () => {
         (t) =>
           t.statements[0].type === "all" &&
           t.statements[1].type === "all" &&
-          t.statements[0].object === t.statements[1].subject
+          t.statements[0]!.object === t.statements[1]!.subject
       );
 
       expect(barbaraTemplate).toBeDefined();
       expect(barbaraTemplate!.correct).toHaveLength(1);
-      expect(barbaraTemplate!.correct[0].type).toBe("all");
-      expect(barbaraTemplate!.correct[0].subject).toBe(
-        barbaraTemplate!.statements[0].subject
+      expect(barbaraTemplate!.correct[0]!.type).toBe("all");
+      expect(barbaraTemplate!.correct[0]!.subject).toBe(
+        barbaraTemplate!.statements[0]!.subject
       );
-      expect(barbaraTemplate!.correct[0].object).toBe(
-        barbaraTemplate!.statements[1].object
+      expect(barbaraTemplate!.correct[0]!.object).toBe(
+        barbaraTemplate!.statements[1]!.object
       );
     });
 
@@ -55,7 +56,7 @@ describe("Quiz Templates Data Validation", () => {
         (t) =>
           t.statements[0].type === "all" &&
           t.statements[1].type === "none" &&
-          t.statements[0].object === t.statements[1].subject
+          t.statements[0]!.object === t.statements[1]!.subject
       );
 
       expect(celarentTemplate).toBeDefined();
@@ -71,12 +72,12 @@ describe("Quiz Templates Data Validation", () => {
         (t) =>
           t.statements[0].type === "some" &&
           t.statements[1].type === "all" &&
-          t.statements[0].object === t.statements[1].subject
+          t.statements[0]!.object === t.statements[1]!.subject
       );
 
       expect(dariiTemplate).toBeDefined();
       expect(dariiTemplate!.correct).toHaveLength(1);
-      expect(dariiTemplate!.correct[0].type).toBe("some");
+      expect(dariiTemplate!.correct[0]!.type).toBe("some");
     });
 
     it("should validate some-none chain produces some_none conclusion (Ferio syllogism)", () => {
@@ -85,12 +86,12 @@ describe("Quiz Templates Data Validation", () => {
         (t) =>
           t.statements[0].type === "some" &&
           t.statements[1].type === "none" &&
-          t.statements[0].object === t.statements[1].subject
+          t.statements[0]!.object === t.statements[1]!.subject
       );
 
       expect(ferioTemplate).toBeDefined();
       expect(ferioTemplate!.correct).toHaveLength(1);
-      expect(ferioTemplate!.correct[0].type).toBe("some_none");
+      expect(ferioTemplate!.correct[0]!.type).toBe("some_none");
     });
 
     it("should validate same subject patterns produce valid conclusions", () => {
@@ -99,7 +100,7 @@ describe("Quiz Templates Data Validation", () => {
         (t) =>
           t.statements[0].type === "all" &&
           t.statements[1].type === "all" &&
-          t.statements[0].subject === t.statements[1].subject
+          t.statements[0]!.subject === t.statements[1]!.subject
       );
 
       expect(sameSubjectTemplate).toBeDefined();
@@ -182,10 +183,10 @@ describe("Quiz Templates Data Validation", () => {
 
   describe("Answer Consistency", () => {
     it("should have symmetric bidirectional relationships", () => {
-      data.forEach((template, index) => {
+      data.forEach((template) => {
         if (template.correct.length === 2) {
-          const answer1 = template.correct[0];
-          const answer2 = template.correct[1];
+          const answer1 = template.correct[0]!;
+          const answer2 = template.correct[1]!;
 
           // If both answers have the same type, they should be symmetric
           if (answer1.type === answer2.type) {
@@ -199,7 +200,7 @@ describe("Quiz Templates Data Validation", () => {
     });
 
     it("should not duplicate given statements in answers", () => {
-      data.forEach((template, index) => {
+      data.forEach((template) => {
         const statementPairs = new Set<string>();
         template.statements.forEach((stmt) => {
           statementPairs.add(`${stmt.type}:${stmt.subject}-${stmt.object}`);
@@ -213,7 +214,7 @@ describe("Quiz Templates Data Validation", () => {
     });
 
     it("should have all conclusion entities present in statements", () => {
-      data.forEach((template, index) => {
+      data.forEach((template) => {
         const statementEntities = new Set<string>();
 
         template.statements.forEach((stmt) => {
@@ -259,7 +260,7 @@ describe("Quiz Templates Data Validation", () => {
     });
 
     it("should have meaningful conclusions (not empty correct arrays)", () => {
-      data.forEach((template, index) => {
+      data.forEach((template) => {
         expect(template.correct.length).toBeGreaterThan(0);
         expect(template.correct.length).toBeLessThanOrEqual(2);
       });
