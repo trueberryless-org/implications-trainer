@@ -1,5 +1,6 @@
 {
   "name": "implications-trainer",
+  "private": true,
   "homepage": "https://implications-trainer.netlify.app/",
   "bugs": {
     "url": "https://github.com/trueberryless-org/implications-trainer/issues"
@@ -13,41 +14,40 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
+    "check": "astro check",
     "dev": "astro dev",
-    "preview": "astro preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "knip": "knip",
     "lint": "oxlint",
+    "preview": "astro preview",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "pnpm build && playwright test",
-    "check": "astro check"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@astrojs/netlify": "^8.2.6",
+    "@astrojs/node": "^11.1.6",
     "@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
-    "astro": "^7.3.5",
-    "@astrojs/node": "^11.1.6"
+    "astro": "^7.3.5"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
+    "@types/node": "^26.6.3",
+    "@vitest/coverage-v8": "^5.0.3",
     "ajv": "^8.20.0",
+    "knip": "^6.39.0",
+    "oxlint": "^1.86.0",
     "prettier": "3.9.9",
     "prettier-plugin-astro": "1.1.0",
     "typescript": "^6.0.3",
-    "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.63.0",
-    "@vitest/coverage-v8": "^5.0.3",
-    "knip": "^6.39.0",
-    "oxlint": "^1.86.0",
-    "vitest": "^5.0.3",
-    "@astrojs/check": "^0.9.10",
-    "@types/node": "^26.6.3"
+    "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@11.28.0",
-  "private": true,
   "engines": {
     "node": ">=24"
   }
